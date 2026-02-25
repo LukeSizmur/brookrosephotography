@@ -14,20 +14,16 @@ interface FeatureCardData {
 // NOTE: You still need to manually update the heading that come before the cards
 const featureData: FeatureCardData[] = [
 	{
-		largeText: "20",
+		largeText: "10+",
 		description: `Years Experience`,
 	},
 	{
-		largeText: "20K",
+		largeText: "20K+",
 		description: `Photos Delivered`,
 	},
 	{
-		largeText: "310",
+		largeText: "200+",
 		description: `Events Captured`,
-	},
-	{
-		largeText: "22",
-		description: `Locations`,
 	},
 ];
 ---
@@ -40,7 +36,7 @@ const featureData: FeatureCardData[] = [
 
 		<div
 			id="feature-numbers-cards"
-			class="mt-6 grid gap-10 gap-y-16 sm:grid-cols-2 md:mt-12 lg:grid-cols-4"
+			class="mt-6 grid gap-10 gap-y-16 sm:grid-cols-2 md:mt-12 lg:grid-cols-3"
 		>
 			{
 				featureData.map((feature, idx) => (

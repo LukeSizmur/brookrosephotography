@@ -1,6 +1,6 @@
 ---
-title: JOSÉ & MELANIE
-testimonial: Jenna has a way of making us feel like the only people in the room. The photos she delivered were beyond our expectations, capturing the joy, love, and beauty of our special day in a way that we will treasure forever.
+title: MESI
+testimonial: It was a great experience to have Brook and Richard over for a shoot. We had it at our house to capture our growing family and the whole thing was so effortless. Great captures, beautiful editing and genuinely friendly people. 🙏
 image: ./couple-8-crop.jpg
 order: 1
 ---
