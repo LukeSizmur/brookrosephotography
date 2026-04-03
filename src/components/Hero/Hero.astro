@@ -5,31 +5,22 @@
  */
 
 import Button from "@components/Button/Button.astro";
-import heroImage from "@images/hero-bg-min.jpg";
-import heroImageMobile from "@images/hero-bg-min.jpg";
+import heroImage from "@assets/images/newborn-images/newbornphotography_22.jpeg";
 import { Image } from "astro:assets";
 ---
 
 <section id="hero" class="relative z-10 flex min-h-[100lvh] w-full">
 	<!-- background image -->
 	<div class="absolute -z-10 h-full min-h-full w-full overflow-hidden">
-		<div class="absolute inset-0 bg-black/10"></div>
+		<div class="absolute inset-0 bg-black/40"></div>
 
 		<Image
 			src={heroImage}
-			class="hidden h-auto min-h-full w-full object-cover object-bottom sm:block"
-			alt="wedding"
+			class="h-auto min-h-full w-full object-cover object-center"
+			alt="family"
 			aria-hidden="true"
 			loading="eager"
 			height={1400}
-		/>
-		<Image
-			src={heroImageMobile}
-			class="h-auto min-h-full w-full object-cover sm:hidden"
-			alt="wedding"
-			aria-hidden="true"
-			loading="eager"
-			width={1200}
 		/>
 	</div>
 
@@ -38,14 +29,14 @@ import { Image } from "astro:assets";
 		<!-- Hero text -->
 		<div class="text-base-50 my-auto mr-auto max-w-[800px] flex-col">
 			<h1
-				class="font-heading-1 text-4xl font-semibold text-pretty drop-shadow-[0_2px_2px_rgba(0,0,0,0.4)] md:text-7xl md:leading-tight"
+				class="font-heading-1 text-4xl font-semibold text-pretty drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] md:text-7xl md:leading-tight"
 			>
-			    Relaxed, natural, fine art documentary wedding photographer
+				Relaxed, natural photography for your family's most precious moments
 			</h1>
 			<p
-				class="mt-8 text-lg tracking-widest text-pretty drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)] md:max-w-[550px] md:text-2xl"
+				class="mt-8 text-lg tracking-widest text-pretty drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)] md:max-w-[550px] md:text-2xl"
 			>
-				Transform your wedding moments into lasting memories wherever you are.
+				Come as you are. Capturing authentic, timeless memories of your family and new arrivals.
 			</p>
 			<div class="mt-10 flex flex-wrap justify-center gap-4 md:justify-start">
 				<Button

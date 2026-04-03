@@ -1,18 +1,22 @@
 ---
-title: A beachside celebration
-description: The sandy shores, kissed by gentle waves, provided a serene backdrop for your beach wedding.
-heroImage: ./couple-3-square.jpg
+title: Islington Town Hall
+description: An elegant and intimate wedding ceremony at the iconic Islington Town Hall with reception at Bourne & Hollingworth.
+heroImage: ../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_0.jpg
+bannerImage: ../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_4.jpg
 date: "Jun 12 2024"
-location: Miami, Florida
+location: Islington, London
 clients: [Alex, Jeff]
 images:
   [
-    [./couple-2-min-2.jpg, ./couple-2-min-2.jpg],
-    [./rings-wood-min-2.jpg, ./seals-min-2.jpg, ./rings-wood-min-2.jpg],
-    [./couple-9-2.jpg],
-    [./cake-min-2.jpg, ./dress-min-2.jpg],
+    [../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_2.jpg, ../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_4.jpg, ../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_6.jpg],
+    [../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_8.jpg, ../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_10.jpg],
+    [../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_12.jpg],
+    [../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_14.jpg, ../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_16.jpg, ../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_18.jpg],
+    [../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_20.jpg, ../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_22.jpg],
+    [../../../assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_24.jpg],
   ]
-order: 2
+order: 5
+category: "weddings"
 ---
 
-This Malibu wedding was a breathtaking affair. The stunning mountain views provided a picturesque backdrop. The photographs beautifully captured the intimate moments, the vibrant energy, and the overall romantic ambiance of the day.
+A beautifully intimate ceremony at the iconic Islington Town Hall, followed by a vibrant reception at Bourne & Hollingworth. The photographs beautifully capture the joy, elegance, and personal touches that made this London wedding truly unique.

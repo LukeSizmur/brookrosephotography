@@ -24,6 +24,8 @@ const portfolios = defineCollection({
 			// Transform string to Date object
 			date: z.coerce.date(),
 			order: z.number(),
+			category: z.enum(["weddings", "family", "love-stories"]).optional(),
+			bannerImage: image().optional(),
 			// will be excluded from build if draft is "true"
 			draft: z.boolean().optional(),
 		}),

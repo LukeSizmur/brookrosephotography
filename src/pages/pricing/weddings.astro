@@ -1,0 +1,365 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Button from "@components/Button/Button.astro";
+import Contact from "@components/Contact/Contact.astro";
+import { Image } from "astro:assets";
+
+import halfDayImage from "@assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_2.jpg";
+import fullDayImage from "@assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_2.jpg";
+import bespokeImage from "@assets/images/wedding-photos/north-mymms-mansion-house.png";
+
+const packages = [
+	{
+		name: "Half Day",
+		duration: "4 hours",
+		price: "Starting from £900",
+		featured: false,
+		description:
+			"Ideal for intimate ceremonies or shorter celebrations. Shorter coverage but still more than enough time for beautiful, genuine photographs.",
+		features: [
+			{ label: "Duration", value: "Up to 4 hours" },
+			{ label: "Final photos", value: "200+ hand-edited" },
+			{ label: "Online gallery", value: "Private" },
+			{ label: "Ceremony coverage", value: "✓" },
+			{ label: "Getting ready", value: "—" },
+			{ label: "Reception coverage", value: "Partial" },
+		],
+		image: halfDayImage,
+	},
+	{
+		name: "Full Day",
+		duration: "8 hours",
+		price: "£1950",
+		featured: true,
+		description:
+			"My most popular package. I'll be with you from your wedding prep all the way through to the first dance — capturing every chapter of your day.",
+		features: [
+			{ label: "Duration", value: "Up to 8 hours" },
+			{ label: "Final photos", value: "400+ hand-edited" },
+			{ label: "Online gallery", value: "Private" },
+			{ label: "Ceremony coverage", value: "✓" },
+			{ label: "Getting ready", value: "✓" },
+			{ label: "Reception coverage", value: "✓" },
+		],
+		image: fullDayImage,
+	},
+	{
+		name: "Bespoke",
+		duration: "tailored",
+		price: "Starting from £400",
+		featured: false,
+		description:
+			"Eloping? Just the ceremony? Portraits only? Tell me what you need and I'll build a package around you.",
+		features: [
+			{ label: "Duration", value: "Tailored" },
+			{ label: "Final photos", value: "Tailored" },
+			{ label: "Online gallery", value: "Private" },
+			{ label: "Ceremony coverage", value: "Optional" },
+			{ label: "Getting ready", value: "Optional" },
+			{ label: "Reception coverage", value: "Optional" },
+		],
+		image: bespokeImage,
+	},
+];
+
+const comparison = [
+	{ feature: "Price", halfDay: "From £900", fullDay: "£1950", bespoke: "From £400" },
+	{ feature: "Duration", halfDay: "Up to 4 hours", fullDay: "Up to 8 hours", bespoke: "Tailored" },
+	{ feature: "Final photos", halfDay: "200+", fullDay: "400+", bespoke: "Tailored" },
+	{ feature: "Private online gallery", halfDay: "✓", fullDay: "✓", bespoke: "✓" },
+	{ feature: "Ceremony coverage", halfDay: "✓", fullDay: "✓", bespoke: "Optional" },
+	{ feature: "Getting ready coverage", halfDay: "—", fullDay: "✓", bespoke: "Optional" },
+	{ feature: "Reception coverage", halfDay: "Partial", fullDay: "✓", bespoke: "Optional" },
+	{ feature: "First dance coverage", halfDay: "—", fullDay: "✓", bespoke: "Optional" },
+];
+---
+
+<BaseLayout
+	title="Wedding Photography Pricing | Brook Rose Photography"
+	description="Relaxed, documentary-style wedding photography packages. View Half Day, Full Day, and Bespoke pricing for your wedding day."
+>
+	<div class="site-container pt-24 md:pt-36">
+		<!-- Page header -->
+		<div class="mx-auto max-w-2xl text-center" data-animate>
+			<p class="mb-3 text-sm tracking-[0.25em] text-primary-500 uppercase">Investment</p>
+			<h1 class="h2 text-pretty uppercase">Wedding Photography</h1>
+			<div class="mx-auto mt-6 h-px w-16 bg-primary-300"></div>
+			<p class="mt-6 text-lg leading-relaxed text-base-600">
+				Relaxed, natural, fine art documentary coverage — from intimate elopements to full celebrations.
+			</p>
+		</div>
+
+		<!-- Pricing cards -->
+		<div
+			class="mx-auto mt-12 grid w-full max-w-md gap-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-3 lg:items-start lg:gap-6"
+			data-animate-stagger
+		>
+			{
+				packages.map((pkg) => (
+					<div
+						class:list={[
+							"pricing-card flex flex-col",
+							pkg.featured ? "pricing-card--featured" : "pricing-card--standard",
+						]}
+					>
+						<div class="card-image-wrap overflow-hidden">
+							<Image
+								src={pkg.image}
+								alt={pkg.name}
+								width={500}
+								densities={[1.5, 2]}
+								class="card-image h-full w-full object-cover"
+							/>
+						</div>
+						<div class="card-body flex flex-1 flex-col">
+							<p class="mb-2 text-xs tracking-[0.2em] text-primary-500 uppercase">{pkg.duration}</p>
+							<h2 class="font-heading-1 text-2xl font-normal tracking-wide">{pkg.name}</h2>
+							<div class="my-5 h-px bg-primary-200" />
+							<p class="font-decorative text-3xl leading-tight tracking-wide text-primary-700">
+								{pkg.price}
+							</p>
+							<div class="my-5 h-px bg-primary-200" />
+							<p class="text-base leading-relaxed text-base-600">{pkg.description}</p>
+							<ul class="mt-5 flex flex-col gap-3">
+								{pkg.features.map((f) => (
+									<li class="flex items-start gap-3 text-sm leading-relaxed text-base-600">
+										<span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary-400" />
+										<span>
+											<span class="font-medium text-base-800">{f.label}:</span> {f.value}
+										</span>
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>
+				))
+			}
+		</div>
+
+		<div class="mt-12 flex justify-center">
+			<Button href="/#contact" variant="outline" class="px-10 py-3 text-sm tracking-widest uppercase">
+				Get in touch
+			</Button>
+		</div>
+	</div>
+
+	<!-- Comparison table -->
+	<div class="site-container pb-16 pt-10 mt-10 md:pb-24">
+		<details class="comparison-details mx-auto max-w-4xl" data-animate>
+			<summary class="comparison-summary">
+				<span class="font-heading-1 text-lg tracking-wide">Compare all packages</span>
+				<span class="chevron" aria-hidden="true">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="m6 9 6 6 6-6"></path>
+					</svg>
+				</span>
+			</summary>
+
+			<div class="comparison-table-wrap">
+				<table class="comparison-table w-full text-sm">
+					<thead>
+						<tr>
+							<th class="feature-col text-left"></th>
+							<th class="text-center">Half Day</th>
+							<th class="featured-col text-center">Full Day</th>
+							<th class="text-center">Bespoke</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							comparison.map((row, i) => (
+								<tr class:list={[i % 2 === 0 ? "row-even" : "row-odd"]}>
+									<td class="feature-col font-medium text-base-700">{row.feature}</td>
+									<td class="text-center text-base-600">{row.halfDay}</td>
+									<td class="featured-col text-center text-base-700">{row.fullDay}</td>
+									<td class="text-center text-base-600">{row.bespoke}</td>
+								</tr>
+							))
+						}
+						<tr class="cta-row">
+							<td class="feature-col"></td>
+							<td class="text-center">
+								<a href="/#contact" class="cta-link">Book now</a>
+							</td>
+							<td class="featured-col text-center">
+								<a href="/#contact" class="cta-link cta-link--featured">Book now</a>
+							</td>
+							<td class="text-center">
+								<a href="/#contact" class="cta-link">Book now</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</details>
+	</div>
+
+	<Contact />
+</BaseLayout>
+
+<style>
+	/* ── Pricing cards ── */
+	.pricing-card--standard {
+		background-color: white;
+	}
+	.pricing-card--standard .card-image-wrap {
+		aspect-ratio: 4 / 3;
+	}
+	.pricing-card--standard .card-body {
+		padding: 2rem 1.75rem 2.25rem;
+		border: 1px solid oklch(88.03% 0.0219 76.52);
+		border-top: none;
+	}
+	.pricing-card--featured {
+		background-color: white;
+		box-shadow: 0 8px 40px -8px oklch(64.12% 0.0623 60.4 / 0.2);
+		position: relative;
+	}
+	.pricing-card--featured::before {
+		content: "Most Popular";
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 10;
+		font-family: var(--font-sans);
+		font-size: 0.65rem;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		background-color: oklch(88.03% 0.0219 76.52);
+		color: oklch(45.03% 0.0426 44.25);
+		padding: 0.35rem 0.75rem;
+	}
+	.pricing-card--featured .card-image-wrap {
+		aspect-ratio: 3 / 4;
+	}
+	.pricing-card--featured .card-body {
+		padding: 2.25rem 2rem 2.5rem;
+		border: 1px solid oklch(80.1% 0.0376 73.97);
+		border-top: none;
+	}
+	.card-image-wrap {
+		overflow: hidden;
+	}
+	.card-image {
+		transition: transform 0.7s ease;
+	}
+	.pricing-card:hover .card-image {
+		transform: scale(1.03);
+	}
+	@media (min-width: 1024px) {
+		.pricing-card--featured {
+			margin-top: -1.5rem;
+		}
+	}
+
+	/* ── Comparison details/summary ── */
+	.comparison-details {
+		border: 1px solid oklch(88.03% 0.0219 76.52);
+		width: 100%;
+	}
+	.comparison-summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1.25rem 1.75rem;
+		cursor: pointer;
+		list-style: none;
+		background-color: oklch(97.46% 0.0051 67.76);
+		user-select: none;
+		gap: 1rem;
+	}
+	.comparison-summary::-webkit-details-marker {
+		display: none;
+	}
+	.comparison-summary:hover {
+		background-color: oklch(93% 0.012 70);
+	}
+	.chevron {
+		display: flex;
+		align-items: center;
+		color: oklch(64.12% 0.0623 60.4);
+		transition: transform 0.25s ease;
+		flex-shrink: 0;
+	}
+	.comparison-details[open] .chevron {
+		transform: rotate(180deg);
+	}
+
+	/* ── Comparison table ── */
+	.comparison-table-wrap {
+		border: 1px solid oklch(88.03% 0.0219 76.52);
+		border-top: none;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		max-width: 100%;
+	}
+	.comparison-table {
+		border-collapse: collapse;
+		min-width: 520px;
+	}
+	.comparison-table thead tr {
+		background-color: oklch(97.46% 0.0051 67.76);
+		border-bottom: 1px solid oklch(88.03% 0.0219 76.52);
+	}
+	.comparison-table th {
+		padding: 1rem 1.25rem;
+		font-family: var(--font-heading-1);
+		font-size: 0.95rem;
+		font-weight: 400;
+		letter-spacing: 0.04em;
+		color: oklch(35% 0.03 60);
+	}
+	.comparison-table td {
+		padding: 0.85rem 1.25rem;
+		border-bottom: 1px solid oklch(93% 0.012 70);
+	}
+	.row-even {
+		background-color: white;
+	}
+	.row-odd {
+		background-color: oklch(97.46% 0.0051 67.76);
+	}
+	.feature-col {
+		min-width: 10rem;
+	}
+	.featured-col {
+		background-color: oklch(95% 0.018 70) !important;
+		border-left: 1px solid oklch(88.03% 0.0219 76.52);
+		border-right: 1px solid oklch(88.03% 0.0219 76.52);
+	}
+	.cta-row td {
+		padding: 1.25rem;
+		border-bottom: none;
+	}
+	.cta-link {
+		display: inline-block;
+		font-family: var(--font-sans);
+		font-size: 0.75rem;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		padding: 0.5rem 1.25rem;
+		border: 1px solid oklch(80.1% 0.0376 73.97);
+		color: oklch(45.03% 0.0426 44.25);
+		transition: background-color 0.2s ease, color 0.2s ease;
+	}
+	.cta-link:hover {
+		background-color: oklch(88.03% 0.0219 76.52);
+	}
+	.cta-link--featured {
+		background-color: oklch(88.03% 0.0219 76.52);
+		border-color: oklch(64.12% 0.0623 60.4);
+	}
+	.cta-link--featured:hover {
+		background-color: oklch(80.1% 0.0376 73.97);
+	}
+</style>

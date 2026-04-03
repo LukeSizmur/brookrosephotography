@@ -6,18 +6,72 @@
 interface Props {
 	largeText: string;
 	description: string;
-	rest?: any; // catch-all for any additional parameters, such as "aria-label"
+	rest?: any;
 }
 
 const { largeText, description, ...rest } = Astro.props as Props;
+
+// Parse e.g. "20K+" → { value: 20, suffix: "K+" }
+const match = largeText.match(/^(\d+)(.*)/);
+const countValue = match ? parseInt(match[1], 10) : 0;
+const countSuffix = match ? match[2] : "";
 ---
 
 <div {...rest} class="flex flex-col gap-3 text-center">
-	<h3 class="font-decorative text-primary-500 text-[8rem] leading-none">
-		{largeText}
+	<h3
+		class="font-decorative text-primary-500 text-[8rem] leading-none tabular-nums"
+		data-count-to={countValue}
+		data-count-suffix={countSuffix}
+	>
+		0{countSuffix}
 	</h3>
 
 	<p class="description font-heading-1 pr-2 text-2xl">
 		{description}
 	</p>
 </div>
+
+<script>
+	function runCountUps() {
+		const DURATION = 1600; // ms
+
+		function easeOut(t: number) {
+			return 1 - Math.pow(1 - t, 3);
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) return;
+					observer.unobserve(entry.target);
+
+					const el = entry.target as HTMLElement;
+					const target = parseInt(el.dataset.countTo ?? "0", 10);
+					const suffix = el.dataset.countSuffix ?? "";
+					const start = performance.now();
+
+					function tick(now: number) {
+						const elapsed = now - start;
+						const progress = Math.min(elapsed / DURATION, 1);
+						const current = Math.round(easeOut(progress) * target);
+						el.textContent = current + suffix;
+						if (progress < 1) requestAnimationFrame(tick);
+					}
+
+					requestAnimationFrame(tick);
+				});
+			},
+			{ threshold: 0.5 },
+		);
+
+		document.querySelectorAll<HTMLElement>("[data-count-to]").forEach((el) => {
+			// Reset to zero before re-observing (handles view transitions)
+			const suffix = el.dataset.countSuffix ?? "";
+			el.textContent = "0" + suffix;
+			observer.observe(el);
+		});
+	}
+
+	runCountUps();
+	document.addEventListener("astro:page-load", runCountUps);
+</script>

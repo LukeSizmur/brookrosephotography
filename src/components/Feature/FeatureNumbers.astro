@@ -28,15 +28,16 @@ const featureData: FeatureCardData[] = [
 ];
 ---
 
-<section id="feature-numbers" class="bg-base-100 scroll-mt-10 py-8 md:py-12">
+<section id="feature-numbers" class="bg-section-olive scroll-mt-10 py-8 md:py-12">
 	<div class="mx-auto max-w-6xl px-4">
-		<div class="text-prety mr-auto text-center">
+		<div class="text-prety mr-auto text-center" data-animate>
 			<h2 class="h2">Capture your love story with an experienced, client centered photographer</h2>
 		</div>
 
 		<div
 			id="feature-numbers-cards"
 			class="mt-6 grid gap-10 gap-y-16 sm:grid-cols-2 md:mt-12 lg:grid-cols-3"
+			data-animate-stagger
 		>
 			{
 				featureData.map((feature, idx) => (

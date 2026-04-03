@@ -46,4 +46,39 @@ const {
 		</div>
 		<Footer />
 	</body>
+
+	<script>
+		function initScrollAnimations() {
+			// Enable animation CSS only once JS is running — prevents invisible
+			// content (opacity:0) appearing as blank gaps on slow devices
+			document.documentElement.classList.add("js-anim");
+
+			// Apply stagger delays to children of [data-animate-stagger] containers
+			document.querySelectorAll("[data-animate-stagger]").forEach((container) => {
+				Array.from(container.children).forEach((child, i) => {
+					(child as HTMLElement).style.transitionDelay = `${i * 110}ms`;
+				});
+			});
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("is-visible");
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+			);
+
+			document
+				.querySelectorAll("[data-animate], [data-animate-stagger] > *")
+				.forEach((el) => observer.observe(el));
+		}
+
+		// Run on initial load and after Astro view transitions
+		initScrollAnimations();
+		document.addEventListener("astro:page-load", initScrollAnimations);
+	</script>
 </html>

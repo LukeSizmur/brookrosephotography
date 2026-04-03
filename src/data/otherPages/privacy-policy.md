@@ -1,49 +1,140 @@
 ---
 title: Privacy Policy
-description: Example privacy policy for Blogsmith! The best starter blog template for Astro.
+description: Privacy policy for Brook Rose Photography — how we collect, store, and use your personal information and images.
 ---
 
-_Last updated on Sep 9, 2023_
+_Last updated on April 1, 2026_
 
-This privacy policy sets out how Example LLC collects, processes, and uses your Personal Information through your use of our Services.
+This privacy policy explains how Brook Rose Photography ("we", "us", "our") collects, stores, and uses your personal information and photographs in connection with the services we provide, including wedding, couple, and family photography.
 
-**This is purely for example. Please consult a lawyer for your own privacy policy.**
+---
 
-## Personal Information Collection
+## 1. Who We Are
 
-We only collect and use Personal Information to the extent necessary to provide you with the Services. We collect Personal Information for the Website to provide you with a better online experience.
+Brook Rose Photography is a sole trader photography business based in Chichester, UK. We provide documentary and fine art photography services for weddings, couples, engagements, and family sessions.
 
-## Personal Information Retention
+For any privacy-related queries, please contact us at: **hello@brookrosephotography.co.uk**
 
-We keep Personal Information for the shortest time necessary to provide you with Services and to meet all our legal and compliance obligations. To determine this retention period, we take into account (i) the nature of the Personal Information gathered; and (ii) the nature of our legal and compliance obligations. All Personal Information no longer required by us is destroyed and/or erased.
+---
 
-## Personal Data from Third Parties
+## 2. Information We Collect
 
-We may, from time to time, obtain Personal Information from third parties to enable us to better tailor our Services to you (Third Party Personal Information). When we obtain Third Party Personal Information, we will notify you within one month. If we use or share Third Party Personal Information, we will notify you immediately.
+We collect and process the following personal information:
 
-## Your Rights
+- **Contact details** — your name, email address, phone number, and postal address, provided when you enquire or book a session.
+- **Event details** — wedding date, venue, schedule, and names of key individuals attending your event.
+- **Payment information** — invoices and payment records. We do not store card details; payments are handled by secure third-party processors.
+- **Website enquiry data** — messages submitted through our contact form.
+- **Images and video** — photographs taken of you, your family, wedding party, and guests during your session or event.
 
-With respect to Personal Information we hold, you have the following rights:
+---
 
-- Access: You may request from us access to your data that we hold on you.
-- Rectification: If the data we hold on you is inaccurate, you may request that we correct it. If the data we hold is incomplete, you may request that we complete it.
-- Erasure: Subject to certain conditions, you may request that we erase all of the data we hold on you.
-- Restrictions: Subject to certain conditions, you may request that we restrict the processing of data we hold on you.
-- Portability: Subject to certain conditions, you may request that we transfer all the data we hold on you to a third party (including yourself).
-- Objection: Subject to certain conditions, you may object to our processing of your data.
+## 3. How We Use Your Information
 
-## Minors
+We use your personal information to:
 
-We do not knowingly collect information on children under the age of 16 (“Child”). If you become aware that a Child has provided us with Personal Information, please contact us. If we become aware that we have collected Personal Information from a Child without their parent's verifiable authorization to access our Services, we will take steps to remove that information from our servers.
+- Communicate with you before, during, and after your booking.
+- Deliver your final edited images via an online gallery.
+- Issue invoices and manage payments.
+- Meet any legal or contractual obligations.
 
-## Third Party Links
+---
 
-Our website contains links to other third-party websites not owned or managed by Example LLC. This privacy policy applies to this website only. If you click a link to a third-party website, the privacy policy of that website will apply. We highly recommend that you read the privacy policies of other websites as they may be different from ours.
+## 4. Photography & Image Usage
 
-## Merger, acquisition, or asset sale
+### Editing and Storage
 
-If Example LLC is involved in a merger, acquisition, or asset sale, your Personal Information may be transferred.
+After your session or event, your images are stored and edited on a personal laptop and backed up to secure external storage. This is a standard and necessary part of the professional editing workflow. Your images are not accessible to third parties during this process.
 
-## Contact us
+Your images will be retained for a minimum of **12 months** after delivery, after which they may be deleted. If you would like a copy kept for longer, please let us know.
 
-If you have any questions or suggestions about our privacy policy or want to know more information about Personal Information we hold, please contact us at support@example.com.
+### Marketing and Portfolio Use
+
+Unless you have specifically opted out in writing at the time of booking, we may use a selection of your photographs for:
+
+- Our website gallery and portfolio pages.
+- Our social media channels (Instagram, Facebook, etc.).
+- Printed marketing materials and competition entries.
+- Editorial submissions to wedding blogs and publications.
+
+We will never tag or identify you personally on social media without your explicit permission. If you would prefer your images not to be used for marketing, please let us know before or at the time of your session — we are happy to accommodate this.
+
+### Images of Children
+
+We treat photographs of children with particular care. Where a session includes children, we will seek verbal confirmation from the parent or guardian present before using any images publicly. Images of children will never be posted on social media in a way that includes identifying information.
+
+---
+
+## 5. Sharing Your Information
+
+We do not sell your personal information. We may share limited information with trusted third parties only where necessary to deliver our services:
+
+- **Online gallery platforms** — to deliver your images securely (e.g. Pixieset, Pic-Time).
+- **Payment processors** — to handle invoices and transactions.
+- **Cloud backup providers** — to securely back up your images.
+
+All third-party services we use are required to handle your data securely and in accordance with applicable data protection law.
+
+---
+
+## 6. Legal Basis for Processing (UK GDPR)
+
+We process your personal information on the following legal bases:
+
+- **Contract** — to fulfil our obligations under the photography agreement between us.
+- **Legitimate interests** — for marketing use of your images, where you have not opted out, as this is a standard and expected part of working with a professional photographer.
+- **Legal obligation** — to meet tax and record-keeping requirements.
+
+---
+
+## 7. Your Rights
+
+Under UK GDPR, you have the right to:
+
+- **Access** the personal data we hold about you.
+- **Rectify** any inaccurate or incomplete information.
+- **Erase** your personal data, subject to our legal and contractual obligations.
+- **Restrict or object** to processing in certain circumstances.
+- **Withdraw consent** for marketing image use at any time by contacting us.
+
+To exercise any of these rights, please contact us at **hello@brookrosephotography.co.uk**.
+
+---
+
+## 8. Data Retention
+
+| Data Type | Retention Period |
+|---|---|
+| Enquiry and contact messages | 2 years |
+| Booking and contract records | 7 years (legal requirement) |
+| Payment and invoice records | 7 years (HMRC requirement) |
+| Edited images | Minimum 12 months after delivery |
+| Raw/unedited images | Deleted after final gallery delivery |
+
+---
+
+## 9. Security
+
+We take reasonable technical and organisational measures to protect your personal information and images from unauthorised access, loss, or disclosure. Your images are stored on password-protected devices and backed up to encrypted or access-controlled cloud storage.
+
+---
+
+## 10. Third-Party Links
+
+Our website may contain links to third-party websites. This privacy policy applies only to Brook Rose Photography. We are not responsible for the privacy practices of any external sites.
+
+---
+
+## 11. Changes to This Policy
+
+We may update this policy from time to time. The most recent version will always be available on this page with an updated "Last updated" date.
+
+---
+
+## 12. Contact
+
+If you have any questions about this privacy policy or how we handle your data, please get in touch:
+
+**Brook Rose Photography**
+Chichester, UK
+**hello@brookrosephotography.co.uk**

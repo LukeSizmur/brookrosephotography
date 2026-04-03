@@ -18,33 +18,27 @@ const navConfig: navItem[] = [
 		link: "/",
 	},
 	{
-		text: "portfolios",
-		link: "/portfolio/",
+		text: "Portfolio",
+		dropdown: [
+			{ text: "Family", link: "/portfolio/family/" },
+			{ text: "Weddings", link: "/portfolio/weddings/" },
+			{ text: "Love Stories", link: "/portfolio/love-stories/" },
+		],
+	},
+	{
+		text: "Gallery",
+		link: "/gallery/",
 	},
 	{
 		text: "Pricing",
-		link: "/#pricing",
+		dropdown: [
+			{ text: "Family & Newborn", link: "/pricing/family-newborn/" },
+			{ text: "Weddings", link: "/pricing/weddings/" },
+		],
 	},
 	{
-		text: "Pages",
-		dropdown: [
-			{
-				text: "Portfolio",
-				link: "/portfolio/couple-1/",
-			},
-			{
-				text: "Legal",
-				link: "/privacy-policy/",
-			},
-			{
-				text: "Elements",
-				link: "/elements/",
-			},
-			{
-				text: "404",
-				link: "/not-a-link/",
-			},
-		],
+		text: "Legal",
+		link: "/privacy-policy/",
 	},
 ];
 

@@ -1,0 +1,229 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+
+// Helper: sort glob entries by filename numerically, return ImageMetadata array
+function sorted(mods: Record<string, { default: ImageMetadata }>): ImageMetadata[] {
+	return Object.entries(mods)
+		.sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+		.map(([, m]) => m.default);
+}
+
+// 1. Newborn — first
+const newbornMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/newborn-images/*.jpg",
+	{ eager: true },
+);
+
+// 2. Family — second
+const familyMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/family-images/*.{jpg,jpeg}",
+	{ eager: true },
+);
+
+// 3. Rest — order within each group is consistent, groups are arbitrary
+const baliMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/bali-destination-photoshoot/*.jpg",
+	{ eager: true },
+);
+const thailandMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/thailand-destination-photoshoot/*.jpg",
+	{ eager: true },
+);
+const galleryMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/gallery-images/*.jpg",
+	{ eager: true },
+);
+const northMymmsMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/wedding-photos/north-mymms-mansion-house/*.jpg",
+	{ eager: true },
+);
+const islingtonMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/wedding-photos/islington-town-hall/*.jpg",
+	{ eager: true },
+);
+
+// Root-level photos — exclude site UI assets
+const rootMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/*.{jpg,jpeg,png}",
+	{ eager: true },
+);
+const siteAssets = new Set([
+	"logo-min.png",
+	"hero-bg-crop.jpg",
+	"hero-bg-min.jpg",
+	"photographer-min.jpg",
+	"portfolio-header-crop-min.jpg",
+]);
+const rootImages = Object.entries(rootMods)
+	.filter(([path]) => !siteAssets.has(path.split("/").pop() ?? ""))
+	.sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+	.map(([, m]) => m.default);
+
+const images: ImageMetadata[] = [
+	...sorted(newbornMods),
+	...sorted(familyMods),
+	...sorted(baliMods),
+	...sorted(thailandMods),
+	...sorted(galleryMods),
+	...sorted(northMymmsMods),
+	...sorted(islingtonMods),
+	...rootImages,
+];
+
+// Repeating span pattern for a 3-column grid (uses grid-auto-flow: dense to fill gaps)
+const spanPattern = [
+	{ col: 1, row: 1 },
+	{ col: 1, row: 2 },
+	{ col: 1, row: 1 },
+	{ col: 2, row: 1 },
+	{ col: 1, row: 1 },
+	{ col: 1, row: 1 },
+	{ col: 2, row: 2 },
+	{ col: 1, row: 1 },
+	{ col: 1, row: 1 },
+	{ col: 1, row: 2 },
+	{ col: 2, row: 1 },
+	{ col: 1, row: 1 },
+];
+---
+
+<BaseLayout
+	title="Gallery"
+	description="Browse our complete photography gallery — newborn, family, weddings, and destination shoots by Brook Rose Photography."
+>
+	<!-- Page Header -->
+	<div class="site-container pt-32 pb-12 text-center">
+		<p class="h3 text-primary-600 mb-4 tracking-[0.3em]">Browse</p>
+		<h1 class="h2 mb-6 text-pretty">
+			A Collection of Timeless Moments
+		</h1>
+		<p class="description mx-auto max-w-xl text-lg">
+			Newborn sessions, family portraits, weddings, and destination shoots — every image tells a story worth keeping.
+		</p>
+	</div>
+
+	<!-- Gallery Grid -->
+	<div class="site-container pb-24">
+		<div class="gallery-grid">
+			{
+				images.map((img, i) => {
+					const { col, row } = spanPattern[i % spanPattern.length];
+					return (
+						<div
+							class="gallery-item"
+							style={`grid-column: span ${col}; grid-row: span ${row};`}
+							data-gallery-item
+						>
+							<Image
+								src={img}
+								alt={`Photography — image ${i + 1}`}
+								width={col === 2 ? 1200 : 600}
+								height={row === 2 ? 900 : 450}
+								class="gallery-image"
+								loading="lazy"
+								quality="high"
+							/>
+						</div>
+					);
+				})
+			}
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-auto-rows: 300px;
+		grid-auto-flow: dense;
+		gap: 6px;
+	}
+
+	.gallery-item {
+		overflow: hidden;
+		position: relative;
+		background-color: var(--color-base-200);
+		opacity: 0;
+		transform: translateY(16px);
+		transition:
+			opacity 0.55s ease,
+			transform 0.55s ease;
+	}
+
+	.gallery-item.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.gallery-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.5s ease;
+	}
+
+	.gallery-item:hover .gallery-image {
+		transform: scale(1.04);
+	}
+
+	/* Tablet: 2 columns */
+	@media (max-width: 768px) {
+		.gallery-grid {
+			grid-template-columns: repeat(2, 1fr);
+			grid-auto-rows: 260px;
+			gap: 4px;
+		}
+
+		/* Collapse all wide (2-col) items to 1 col on tablet */
+		.gallery-item[style*="grid-column: span 2"] {
+			grid-column: span 1 !important;
+		}
+
+		/* Collapse tall feature items to row-span-1 on tablet */
+		.gallery-item[style*="grid-row: span 2"][style*="grid-column: span 2"] {
+			grid-row: span 1 !important;
+		}
+	}
+
+	/* Mobile: single column */
+	@media (max-width: 480px) {
+		.gallery-grid {
+			grid-template-columns: 1fr;
+			grid-auto-rows: 280px;
+			gap: 4px;
+		}
+
+		.gallery-item[style*="grid-column: span 2"],
+		.gallery-item[style*="grid-row: span 2"] {
+			grid-column: span 1 !important;
+			grid-row: span 1 !important;
+		}
+	}
+</style>
+
+<script>
+	const items = document.querySelectorAll<HTMLElement>("[data-gallery-item]");
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry, i) => {
+				if (entry.isIntersecting) {
+					// Stagger delay based on position within a row
+					const el = entry.target as HTMLElement;
+					const delay = (Array.from(items).indexOf(el) % 3) * 80;
+					setTimeout(() => el.classList.add("visible"), delay);
+					observer.unobserve(el);
+				}
+			});
+		},
+		{
+			threshold: 0.05,
+			rootMargin: "0px 0px 60px 0px",
+		},
+	);
+
+	items.forEach((item) => observer.observe(item));
+</script>

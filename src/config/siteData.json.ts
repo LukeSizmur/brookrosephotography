@@ -24,9 +24,9 @@ const siteData: SiteDataProps = {
 	useViewTransitions: true,
 	// Your information!
 	author: {
-		name: "Cosmic Themes",
-		email: "creator@cosmicthemes.com",
-		twitter: "Cosmic_Themes",
+		name: "BrookRosePhotography",
+		email: "#",
+		// twitter: "Cosmic_Themes",
 	},
 
 	// default image for meta tags if the page doesn't have an image already

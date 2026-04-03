@@ -56,6 +56,10 @@
 	--font-heading-1: "Playfair Display Variable", var(--font-serif);
 	--font-heading-2: "Raleway Variable", var(--font-fallback);
 	--font-decorative: "Cinzel Decorative", "Playfair Display Variable", var(--font-serif);
+	--font-handwriting: "Dancing Script Variable", cursive;
+
+	/* section accent colour — pastel tint of #5D583C (olive) */
+	--color-section-olive: oklch(93% 0.022 89);
 	--font-mono:
 		"SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace";
 }

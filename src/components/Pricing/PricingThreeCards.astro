@@ -7,108 +7,219 @@ import Button from "@components/Button/Button.astro";
 import { Image } from "astro:assets";
 
 interface pricingItem {
-	name: string; // plan name
-	featured?: boolean; // if true, will be highlighted or otherwise featured
-	price: number;
-	features: string[]; // list of features
-	image: ImageMetadata; // imported image
+	name: string;
+	duration: string;
+	featured?: boolean;
+	price: string;
+	description: string;
+	features: string[];
+	image: ImageMetadata;
 }
 
-import image3 from "@assets/images/couple-1-square.jpg";
-import image1 from "@assets/images/couple-5-min.jpg";
-import image2 from "@assets/images/couple-6-crop.jpg";
+import image1 from "@assets/images/newborn-images/newbornphotography_4.jpg";
+import image2 from "@assets/images/family-images/familyphotography_2.jpg";
+import image3 from "@assets/images/family-images/familyphotography_7.jpeg";
 
-// This is designed for 3 pricing items, but can be modified to support more
 const pricingData: pricingItem[] = [
 	{
-		name: "Elopement",
+		name: "Motherhood",
+		duration: "45 minutes",
 		featured: false,
-		price: 1999,
+		price: "£200",
+		description:
+			"A session celebrating a mother's love — capturing the tender connection between you and your child in your home or a location of your choice.",
 		features: [
-			"200+ Professionally Edited Photos",
-			"Private Online Gallery",
-			"*Additional Charge Based On Travel Distance",
-			"*Additional Charge For Videography",
+			"Up to 3 children",
+			"10 final hand-edited photos",
+			"Private online gallery",
+			"Upgrade to full gallery available (+£195)",
+		],
+		image: image3,
+	},
+	{
+		name: "Newborn & Baby",
+		duration: "up to 2 hours",
+		featured: true,
+		price: "£395",
+		description:
+			"Relaxed, baby-led sessions in your home capturing your beautiful new world — the tiny details, the exhaustion, and the absolute love.",
+		features: [
+			"Home-based, baby-led session",
+			"Online gallery of hand-edited photos",
+			"All final photos included",
+			"10% discount on 6-month milestone follow-up",
 		],
 		image: image1,
 	},
 	{
-		name: "Wedding",
-		featured: true,
-		price: 2999,
+		name: "Family",
+		duration: "60–90 minutes",
+		featured: false,
+		price: "£250",
+		description:
+			"Honest, real, authentic family photographs capturing the magic in the ordinary. Tailored to your family at a location or home of your choosing.",
 		features: [
-			"300+ Professionally Edited Photos",
-			"Private Online Gallery",
-			"All-Day Photography Coverage",
-			"*Additional Charge For Videography",
+			"10 final hand-edited photos",
+			"Private online gallery",
+			"Upgrade to full gallery available (+£195)",
 		],
 		image: image2,
-	},
-	{
-		name: "Engagement",
-		featured: false,
-		price: 799,
-		features: [
-			"100+ Professionally Edited Photos",
-			"Private Online Gallery",
-			"*Additional Charge Based On Travel Distance",
-		],
-		image: image3,
 	},
 ];
 ---
 
-<section id="pricing" class="mx-auto max-w-6xl scroll-mt-10 px-4 py-8 md:py-12">
-	<div class="mx-auto max-w-6xl text-center">
-		<h2 class="h2 text-pretty uppercase">Photography Packages</h2>
-	</div>
+<section id="pricing" class="pricing-section scroll-mt-10 px-4 py-16 md:py-24">
+	<div class="mx-auto max-w-6xl">
+		<div class="mb-16 text-center" data-animate>
+			<p class="hours-label mb-3 tracking-[0.25em] text-primary-500 uppercase">Investment</p>
+			<h2 class="font-heading-1 text-4xl font-light tracking-wide md:text-5xl">Family & Newborn Packages</h2>
+			<div class="mx-auto mt-6 h-px w-16 bg-primary-300"></div>
+		</div>
 
-	<!-- works for 3 pricing plans, adjust grid cols here to support more or less -->
-	<div
-		class="mx-auto grid w-full max-w-md gap-12 pt-8 sm:max-w-none sm:grid-cols-2 md:pt-12 lg:grid-cols-3"
-	>
-		{
-			pricingData.map((plan) => (
-				<div
-					class="flex w-full flex-col"
-					class:list={[
-						{
-							"bg-primary-200": plan.featured === true,
-						},
-					]}
-				>
-					<div>
-						<div class="aspect-[3/4] h-auto w-full overflow-hidden">
+		<div class="cards-grid mx-auto grid w-full max-w-md gap-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-3 lg:gap-6 lg:items-start" data-animate-stagger>
+			{
+				pricingData.map((plan) => (
+					<div
+						class:list={[
+							"pricing-card flex flex-col",
+							plan.featured ? "pricing-card--featured" : "pricing-card--standard",
+						]}
+					>
+						<!-- Image -->
+						<div class="card-image-wrap overflow-hidden">
 							<Image
 								src={plan.image}
 								alt={plan.name}
-								width={450}
+								width={500}
 								densities={[1.5, 2]}
-								class="h-full w-full object-cover"
+								class="card-image h-full w-full object-cover"
 							/>
 						</div>
-					</div>
-					<div class="border-primary-200 flex h-full flex-col justify-between border-2 border-t-0 pt-10 pb-10">
-						<div>
-							<h3 class="h2 text-center">{plan.name}</h3>
 
-							<ul class="mt-4 flex flex-col gap-3 px-8">
-								{plan.features.map((feature) => (
-									<li class="leading-snug lg:text-lg lg:leading-snug">{feature}</li>
-								))}
-							</ul>
+						<!-- Content -->
+						<div class="card-body flex flex-1 flex-col">
+							<!-- Hours badge -->
+							<p class="hours-label mb-2 text-xs tracking-[0.2em] text-primary-500 uppercase">
+								{plan.duration}
+							</p>
+
+							<!-- Name -->
+							<h3 class="font-heading-1 text-2xl font-normal tracking-wide">{plan.name}</h3>
+
+							<!-- Divider -->
+							<div class="my-5 h-px bg-primary-200"></div>
+
+							<!-- Price -->
+							<p class="price-text font-decorative text-3xl leading-tight tracking-wide text-primary-700">
+								{plan.price}
+							</p>
+
+							<!-- Divider -->
+							<div class="my-5 h-px bg-primary-200"></div>
+
+							<!-- Description -->
+							<p class="font-sans text-base leading-relaxed text-base-600">
+								{plan.description}
+							</p>
+
+							<!-- Features -->
+							{plan.features.length > 0 && (
+								<ul class="mt-5 flex flex-col gap-3">
+									{plan.features.map((feature) => (
+										<li class="flex items-start gap-3 font-sans text-sm leading-relaxed text-base-600">
+											<span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary-400"></span>
+											{feature}
+										</li>
+									))}
+								</ul>
+							)}
 						</div>
-						<p class="font-decorative text-base-800 mt-6 flex justify-center text-center text-[5rem] leading-none">
-							${plan.price}
-							<span class="flex h-full text-[3.5rem]">+</span>
-						</p>
 					</div>
-				</div>
-			))
-		}
-	</div>
+				))
+			}
+		</div>
 
-	<div class="mt-12 flex justify-center">
-		<Button href="/#contact" variant="outline" class="px-8">Get a quote</Button>
+		<div class="mt-16 flex justify-center">
+			<Button href="/#contact" variant="outline" class="px-10 py-3 tracking-widest uppercase text-sm">
+				Get in touch
+			</Button>
+		</div>
 	</div>
 </section>
+
+<style>
+	.pricing-section {
+		background-color: oklch(97.46% 0.0051 67.76); /* primary-50 */
+	}
+
+	/* Standard card */
+	.pricing-card--standard {
+		background-color: white;
+	}
+
+	.pricing-card--standard .card-image-wrap {
+		aspect-ratio: 4 / 3;
+	}
+
+	.pricing-card--standard .card-body {
+		padding: 2rem 1.75rem 2.25rem;
+		border: 1px solid oklch(88.03% 0.0219 76.52); /* primary-200 */
+		border-top: none;
+	}
+
+	/* Featured card */
+	.pricing-card--featured {
+		background-color: white;
+		box-shadow: 0 8px 40px -8px oklch(64.12% 0.0623 60.4 / 0.2);
+		position: relative;
+	}
+
+	.pricing-card--featured::before {
+		content: "Most Popular";
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 10;
+		font-family: var(--font-sans);
+		font-size: 0.65rem;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		background-color: oklch(88.03% 0.0219 76.52);
+		color: oklch(45.03% 0.0426 44.25);
+		padding: 0.35rem 0.75rem;
+	}
+
+	.pricing-card--featured .card-image-wrap {
+		aspect-ratio: 3 / 4;
+	}
+
+	.pricing-card--featured .card-body {
+		padding: 2.25rem 2rem 2.5rem;
+		border: 1px solid oklch(80.1% 0.0376 73.97); /* primary-300 */
+		border-top: none;
+	}
+
+	.pricing-card--featured .price-text {
+		font-size: 2.25rem;
+	}
+
+	/* Image zoom on hover */
+	.card-image-wrap {
+		overflow: hidden;
+	}
+
+	.card-image {
+		transition: transform 0.7s ease;
+	}
+
+	.pricing-card:hover .card-image {
+		transform: scale(1.03);
+	}
+
+	/* On large screens, featured card sits slightly higher */
+	@media (min-width: 1024px) {
+		.pricing-card--featured {
+			margin-top: -1.5rem;
+		}
+	}
+</style>

@@ -1,18 +1,22 @@
 ---
-title: A mountain escape
-description: Transform your wedding moments into lasting memories amidst California's majestic mountains.
-heroImage: ./couple-9-square.jpg
+title: North Mymms Mansion House
+description: Stunning North Mymms Mansion House wedding event
+heroImage: ./north-mymms-mansion-house.png
+bannerImage: ../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_2.jpg
 date: "Aug 5 2024"
-location: Malibu, California
+location: North Mymms, Hertfordshire
 clients: [Hannah, Marco]
 images:
   [
-    [./couple-2-min-1.jpg, ./couple-2-min-1.jpg],
-    [./rings-wood-min-1.jpg, ./seals-min-1.jpg, ./rings-wood-min-1.jpg],
-    [./couple-9-1.jpg],
-    [./cake-min-1.jpg, ./dress-min-1.jpg],
+    [../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_2.jpg, ../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_4.jpg, ../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_6.jpg],
+    [../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_8.jpg, ../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_10.jpg],
+    [../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_12.jpg],
+    [../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_14.jpg, ../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_16.jpg, ../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_18.jpg],
+    [../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_20.jpg, ../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_22.jpg],
+    [../../../assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_24.jpg],
   ]
-order: 1
+order: 4
+category: "weddings"
 ---
 
-This Malibu wedding was a breathtaking affair. The stunning mountain views provided a picturesque backdrop. The photographs beautifully captured the intimate moments, the vibrant energy, and the overall romantic ambiance of the day.
+A breathtaking wedding at the stunning North Mymms Mansion House. The grand estate provided a magnificent backdrop for every moment, from the intimate ceremony to the elegant reception. The photographs capture the timeless elegance and warmth of this unforgettable day.

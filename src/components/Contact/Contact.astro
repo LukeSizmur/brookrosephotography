@@ -12,16 +12,17 @@ interface Props {
 
 const { class: className } = Astro.props as Props;
 
-import ringsImage from "@assets/images/rings-min.jpg";
+import newBornImage from "@assets/images/newborn-images/newbornphotography_5.jpg";
 ---
 
 <section
 	id="contact"
-	class="mx-auto max-w-md scroll-mt-10 px-4 py-8 md:max-w-6xl md:py-12"
+	class="scroll-mt-10 px-4 py-8 md:py-12"
 	class:list={[className]}
 >
-	<h2 class="h2 md:px-12 lg:text-6xl">Lets Talk!</h2>
-	<div class="grid gap-y-10 md:grid-cols-2">
+	<div class="mx-auto max-w-md md:max-w-6xl">
+	<h2 class="h2 md:px-12 lg:text-6xl" data-animate>Lets Talk!</h2>
+	<div class="grid gap-y-10 md:grid-cols-2" data-animate-stagger>
 		<div class="border-primary-300 pt-8 md:border-r md:pr-20 md:pl-12">
 			<p class="description text-lg">
 				Have questions or are you ready to get a quote? I am here to help! Fill out the form and I
@@ -29,7 +30,7 @@ import ringsImage from "@assets/images/rings-min.jpg";
 			</p>
 			<div class="mx-auto mt-8 aspect-square overflow-hidden">
 				<Image
-					src={ringsImage}
+					src={newBornImage}
 					alt="wedding rings"
 					width={450}
 					densities={[1.5, 2]}
@@ -40,5 +41,6 @@ import ringsImage from "@assets/images/rings-min.jpg";
 		<div class="md:pr-12 md:pl-20">
 			<ContactForm />
 		</div>
+	</div>
 	</div>
 </section>

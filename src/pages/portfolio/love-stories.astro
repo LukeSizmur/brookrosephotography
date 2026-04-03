@@ -1,0 +1,32 @@
+---
+import Contact from "@components/Contact/Contact.astro";
+import PortfolioGrid from "@components/Portfolio/PortfolioGrid.astro";
+import TestimonialQuote from "@components/Testimonials/TestimonialQuote.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const portfolios = await getCollection("portfolios", ({ data }) => {
+	return data.draft !== true && data.category === "love-stories";
+});
+
+const sorted = portfolios.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+	title="Love Stories"
+	description="Couples and destination photography portfolio by Brook Rose Photography."
+>
+	<div class="site-container pt-24 md:pt-36">
+		<div class="mx-auto max-w-6xl text-center">
+			<h1 class="h2 text-pretty uppercase">Love Stories</h1>
+			<p class="description mt-4 text-lg">
+				Destination shoots, couples sessions, and the in-between moments worth holding onto.
+			</p>
+		</div>
+		<PortfolioGrid portfolios={sorted} />
+	</div>
+
+	<TestimonialQuote />
+
+	<Contact class="mt-12" />
+</BaseLayout>
