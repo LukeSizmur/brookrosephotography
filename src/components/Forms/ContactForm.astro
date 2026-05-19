@@ -104,11 +104,11 @@ import Button from "@components/Button/Button.astro";
 					`Email: ${email}`,
 					`Event date: ${date}`,
 				].join("\n");
-				const mailtoUrl = new URL(`mailto:${recipientEmail}`);
+				const mailtoUrl = `mailto:${recipientEmail}?subject=${encodeURIComponent(
+					subject,
+				)}&body=${encodeURIComponent(body)}`;
 
-				mailtoUrl.searchParams.set("subject", subject);
-				mailtoUrl.searchParams.set("body", body);
-				window.location.href = mailtoUrl.toString();
+				window.location.href = mailtoUrl;
 				contactFormStatus.textContent = "Your email app should open with the message ready to send.";
 			} catch (error) {
 				contactFormStatus.textContent =
