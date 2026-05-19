@@ -6,7 +6,7 @@ export interface SiteDataProps {
 	author: {
 		name: string;
 		email: string;
-		twitter: string; // used for twitter cards when sharing a blog post on twitter
+		twitter?: string; // used for twitter cards when sharing a blog post on twitter
 	};
 	defaultImage: {
 		src: string;
@@ -18,9 +18,9 @@ export interface SiteDataProps {
 const siteData: SiteDataProps = {
 	name: "BrookRosePhotography",
 	// Your website's title and description (meta fields)
-	title: "BrookRosePhotography - A Chichester based documentary photographer",
+	title: "Chichester Wedding & Family Photographer | Brook Rose Photography",
 	description:
-    "A Chichester based documentary photographer who has captured thousands of photographs",
+		"Natural documentary wedding, family, and newborn photography in Chichester, West Sussex, and across the UK.",
 	useViewTransitions: true,
 	// Your information!
 	author: {
@@ -31,8 +31,8 @@ const siteData: SiteDataProps = {
 
 	// default image for meta tags if the page doesn't have an image already
 	defaultImage: {
-		src: "/images/cosmic-themes-logo.jpg",
-		alt: "Cosmic Themes logo",
+		src: "/images/footer-image.png",
+		alt: "Brook Rose Photography portrait session",
 	},
 };
 

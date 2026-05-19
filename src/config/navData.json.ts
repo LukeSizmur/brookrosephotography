@@ -26,6 +26,14 @@ const navConfig: navItem[] = [
 		],
 	},
 	{
+		text: "Services",
+		dropdown: [
+			{ text: "Wedding Photographer Chichester", link: "/wedding-photographer-chichester/" },
+			{ text: "Family Photographer Chichester", link: "/family-photographer-chichester/" },
+			{ text: "Newborn Photographer West Sussex", link: "/newborn-photographer-west-sussex/" },
+		],
+	},
+	{
 		text: "Gallery",
 		link: "/gallery/",
 	},

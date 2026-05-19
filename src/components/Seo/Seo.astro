@@ -40,6 +40,17 @@ function trimEndSlash(str: string) {
 // put together the image URL
 const imageUrl =
 	trimEndSlash(Astro.site?.toString() || "") + (optimizedImage?.src || siteData.defaultImage.src);
+const imageType = optimizedImage ? "image/webp" : "image/png";
+const twitterMetadata = siteData.author.twitter
+	? {
+			site: "@" + siteData.author.twitter,
+			creator: "@" + siteData.author.twitter,
+			card: "summary_large_image" as const,
+			title: title,
+			description: description,
+			image: imageUrl,
+		}
+	: undefined;
 ---
 
 <SEO
@@ -58,20 +69,13 @@ const imageUrl =
 			siteName: siteData.title,
 		},
 		image: {
-			type: "image/webp",
+			type: imageType,
 			width: optimizedImage?.attributes.width || "1200",
 			height: optimizedImage?.attributes.height || "800",
 			alt: title,
 		},
 	}}
-	twitter={{
-		site: "@" + siteData.author.twitter,
-		creator: "@" + siteData.author.twitter,
-		card: "summary_large_image",
-		title: title,
-		description: description,
-		image: imageUrl,
-	}}
+	twitter={twitterMetadata}
 	noindex={noindex}
 	nofollow={noindex}
 />
