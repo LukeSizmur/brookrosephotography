@@ -25,7 +25,11 @@ const sorted = portfolios.sort((a, b) => a.data.order - b.data.order);
 		<PortfolioGrid portfolios={sorted} />
 	</div>
 
-	<TestimonialQuote />
+	<TestimonialQuote
+		quote="Oh Brook, they’re incredible!! Thank you so much, we adore them ❤️❤️ We’ll treasure them forever 🥰"
+		attribution={null}
+		uppercase={false}
+	/>
 
 	<Contact class="mt-12" />
 </BaseLayout>

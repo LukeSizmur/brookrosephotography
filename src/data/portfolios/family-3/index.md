@@ -1,10 +1,10 @@
 ---
 title: Alana
-description: A tender and intimate family session welcoming baby George into the world — quiet moments, big emotions, and a brand new chapter.
+description: A tender and intimate family session welcoming their baby into the world — quiet moments, big emotions, and a brand new chapter.
 heroImage: ../../../assets/images/newborn-images/newbornphotography_22.jpeg
 bannerImage: ../../../assets/images/newborn-images/newbornphotography_5.jpg
 date: "Mar 14 2020"
-location: England
+location: London, England
 clients: [Alana]
 images:
   [

@@ -1,33 +1,47 @@
 ---
 import { Icon } from "astro-icon/components";
+
+interface Props {
+	attribution?: string | null;
+	quote?: string | null;
+	uppercase?: boolean;
+}
+
+const {
+	attribution = null,
+	quote = null,
+	uppercase = true,
+} = Astro.props;
 ---
 
-<div class="bg-base-100 mt-12 py-10 md:mt-16 md:py-16">
-	<div class="mx-auto flex max-w-6xl items-start gap-2 px-4">
-		<div>
-			<Icon
-				name="gridicons/quote"
-				class="text-primary-200 size-8 -translate-y-4 md:size-20"
-				aria-hidden="true"
-			/>
-		</div>
-		<p class="h2 text-primary-600 text-center uppercase">
-    		We just got our wedding photos back today, and I am in love!!
-    	    Brook was amazing from the start, super helpful and kind. 
-    		She was super professional and our photos are incredible. 
-		</p>
-		<div>
-			<Icon
-				name="gridicons/quote"
-				class="text-primary-200 size-8 -translate-y-4 -scale-x-100 md:size-20"
-				aria-hidden="true"
-			/>
-		</div>
-	</div>
+{
+	quote && (
+		<div class="bg-base-100 mt-12 py-10 md:mt-16 md:py-16">
+			<div class="mx-auto flex max-w-6xl items-start gap-2 px-4">
+				<div>
+					<Icon
+						name="gridicons/quote"
+						class="text-primary-200 size-8 -translate-y-4 md:size-20"
+						aria-hidden="true"
+					/>
+				</div>
+				<p class:list={["h2 text-primary-600 text-center", { uppercase }]}>{quote}</p>
+				<div>
+					<Icon
+						name="gridicons/quote"
+						class="text-primary-200 size-8 -translate-y-4 -scale-x-100 md:size-20"
+						aria-hidden="true"
+					/>
+				</div>
+			</div>
 
-	<div class="xs:grid-cols-2 mt-6 grid">
-		<div class="col-start-2">
-			<p class="h3 text-primary-600">- Violet, Bride</p>
+			{attribution && (
+				<div class="xs:grid-cols-2 mt-6 grid">
+					<div class="col-start-2">
+						<p class="h3 text-primary-600">- {attribution}</p>
+					</div>
+				</div>
+			)}
 		</div>
-	</div>
-</div>
+	)
+}
