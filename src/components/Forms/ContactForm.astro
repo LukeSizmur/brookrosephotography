@@ -9,20 +9,34 @@ import Button from "@components/Button/Button.astro";
 	method="get"
 	class="flex h-full flex-col justify-between gap-4"
 >
-	<div>
-		<label for="contact-name" class="font-heading-1 text-lg uppercase">Your Name</label>
-		<input
-			type="text"
-			class="form__input"
-			name="name"
-			id="contact-name"
-			autocomplete="name"
-			placeholder=""
-			required
-		/>
+	<div class="grid gap-4 md:grid-cols-2">
+		<div>
+			<label for="contact-first-name" class="font-heading-1 text-lg uppercase">First Name</label>
+			<input
+				type="text"
+				class="form__input"
+				name="firstName"
+				id="contact-first-name"
+				autocomplete="given-name"
+				placeholder=""
+				required
+			/>
+		</div>
+		<div>
+			<label for="contact-last-name" class="font-heading-1 text-lg uppercase">Last Name</label>
+			<input
+				type="text"
+				class="form__input"
+				name="lastName"
+				id="contact-last-name"
+				autocomplete="family-name"
+				placeholder=""
+				required
+			/>
+		</div>
 	</div>
 	<div class="flex flex-col gap-1">
-		<label for="contact-email" class="font-heading-1 text-lg uppercase">Contact E-mail </label>
+		<label for="contact-email" class="font-heading-1 text-lg uppercase">Email Address</label>
 		<input
 			type="email"
 			class="form__input"
@@ -35,18 +49,71 @@ import Button from "@components/Button/Button.astro";
 		/>
 	</div>
 	<div>
-		<label for="contact-date" class="font-heading-1 text-lg uppercase">Event Date </label>
-		<input type="date" class="form__input" name="date" id="contact-date" placeholder="" required />
+		<label for="contact-date" class="font-heading-1 text-lg uppercase">Wedding date</label>
+		<input type="date" class="form__input" name="weddingDate" id="contact-date" required />
 	</div>
 	<div>
-		<label for="contact-message" class="font-heading-1 text-lg uppercase">Message </label>
+		<label for="contact-plans" class="font-heading-1 text-lg uppercase">
+			Tell me about your wedding plans
+		</label>
 		<textarea
-			name="message"
+			name="weddingPlans"
 			class="form__input"
-			id="contact-message"
+			id="contact-plans"
 			rows="6"
 			placeholder=""
 			required></textarea>
+	</div>
+	<div>
+		<label for="contact-number" class="font-heading-1 text-lg uppercase">Contact number</label>
+		<p class="description mb-2 text-sm">
+			I may send a quick text to confirm I received your enquiry, as emails can land in junk.
+		</p>
+		<input
+			type="tel"
+			class="form__input"
+			name="contactNumber"
+			id="contact-number"
+			autocomplete="tel"
+			inputmode="tel"
+			placeholder=""
+			required
+		/>
+	</div>
+	<div>
+		<fieldset class="flex flex-col gap-2">
+			<legend class="font-heading-1 text-lg uppercase">How did you hear about me?</legend>
+			<label class="flex items-center gap-3">
+				<input type="radio" name="referralSource" value="Facebook advert" required />
+				<span>Facebook advert</span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="radio" name="referralSource" value="Rock My Wedding" />
+				<span>Rock My Wedding</span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="radio" name="referralSource" value="Recommendation" />
+				<span>Recommendation</span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="radio" name="referralSource" value="Instagram" />
+				<span>Instagram</span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="radio" name="referralSource" value="Other" />
+				<span>Other</span>
+			</label>
+		</fieldset>
+	</div>
+	<div>
+		<label for="contact-budget" class="font-heading-1 text-lg uppercase">Photography budget</label>
+		<input
+			type="text"
+			class="form__input"
+			name="photographyBudget"
+			id="contact-budget"
+			placeholder=""
+		/>
 	</div>
 	<div class="hidden" aria-hidden="true">
 		<label for="contact-website">Website</label>
@@ -59,7 +126,7 @@ import Button from "@components/Button/Button.astro";
 		/>
 	</div>
 	<div class="flex">
-		<Button variant="primary" type="submit" class="w-full px-10 md:w-fit">Create Email</Button>
+		<Button variant="primary" type="submit" class="w-full px-10 md:w-fit">Submit</Button>
 	</div>
 	<p id="contact-form-status" class="description min-h-[1.6rem]" aria-live="polite"></p>
 </form>
@@ -72,7 +139,7 @@ import Button from "@components/Button/Button.astro";
 	if (contactForm instanceof HTMLFormElement && contactFormStatus instanceof HTMLElement) {
 		const submitButton = contactForm.querySelector('button[type="submit"]');
 		const submitButtonText = submitButton?.querySelector("span");
-		const initialButtonText = submitButtonText?.textContent || "Create Email";
+		const initialButtonText = submitButtonText?.textContent || "Submit";
 
 		contactForm.addEventListener("submit", async (event) => {
 			event.preventDefault();
@@ -89,20 +156,29 @@ import Button from "@components/Button/Button.astro";
 
 			try {
 				const formData = new FormData(contactForm);
-				const name = String(formData.get("name") || "").trim();
+				const firstName = String(formData.get("firstName") || "").trim();
+				const lastName = String(formData.get("lastName") || "").trim();
+				const name = `${firstName} ${lastName}`.trim();
 				const email = String(formData.get("email") || "").trim();
-				const date = String(formData.get("date") || "").trim();
-				const message = String(formData.get("message") || "").trim();
+				const weddingDate = String(formData.get("weddingDate") || "").trim();
+				const weddingPlans = String(formData.get("weddingPlans") || "").trim();
+				const contactNumber = String(formData.get("contactNumber") || "").trim();
+				const referralSource = String(formData.get("referralSource") || "").trim();
+				const photographyBudget = String(formData.get("photographyBudget") || "").trim();
 				const subject = `Brook Rose Photography enquiry from ${name}`;
 				const body = [
 					"Hi Brook,",
 					"",
-					message,
+					weddingPlans,
 					"",
 					"Enquiry details:",
-					`Name: ${name}`,
+					`First name: ${firstName}`,
+					`Last name: ${lastName}`,
 					`Email: ${email}`,
-					`Event date: ${date}`,
+					`Contact number: ${contactNumber}`,
+					`Wedding date: ${weddingDate}`,
+					`How they heard of Brook Rose Photography: ${referralSource}`,
+					`Photography budget: ${photographyBudget || "Not provided"}`,
 				].join("\n");
 				const mailtoUrl = `mailto:${recipientEmail}?subject=${encodeURIComponent(
 					subject,
