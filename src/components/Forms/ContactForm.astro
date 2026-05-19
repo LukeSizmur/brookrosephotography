@@ -7,6 +7,7 @@ import Button from "@components/Button/Button.astro";
 	name="contact"
 	action="/api/contact"
 	method="post"
+	data-astro-reload
 	class="flex h-full flex-col justify-between gap-4"
 >
 	<div>
@@ -64,7 +65,7 @@ import Button from "@components/Button/Button.astro";
 	<p id="contact-form-status" class="description min-h-[1.6rem]" aria-live="polite"></p>
 </form>
 
-<script>
+<script data-astro-rerun>
 	const contactForm = document.querySelector("#contact-form");
 	const contactFormStatus = document.querySelector("#contact-form-status");
 
@@ -103,10 +104,18 @@ import Button from "@components/Button/Button.astro";
 					},
 					body: formData,
 				});
-				const result = await response.json();
+				const isJson = response.headers.get("content-type")?.includes("application/json");
+				const result = isJson ? await response.json() : null;
 
 				if (!response.ok) {
-					throw new Error(result.error || "The message could not be sent.");
+					throw new Error(
+						result?.error ||
+							"The contact form API was not reached. If testing locally, run the site with Vercel dev.",
+					);
+				}
+
+				if (!isJson) {
+					throw new Error("The contact form API returned an unexpected response.");
 				}
 
 				contactForm.reset();
