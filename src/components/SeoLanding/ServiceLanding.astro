@@ -3,6 +3,8 @@ import Button from "@components/Button/Button.astro";
 import Contact from "@components/Contact/Contact.astro";
 import TestimonialQuote from "@components/Testimonials/TestimonialQuote.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 interface LinkItem {
 	label: string;
@@ -12,6 +14,11 @@ interface LinkItem {
 interface FaqItem {
 	question: string;
 	answer: string;
+}
+
+interface ServiceImage {
+	src: ImageMetadata;
+	alt: string;
 }
 
 interface Props {
@@ -27,6 +34,7 @@ interface Props {
 		body: string[];
 	}[];
 	highlights: string[];
+	images: ServiceImage[];
 	relatedLinks: LinkItem[];
 	faqs: FaqItem[];
 }
@@ -41,6 +49,7 @@ const {
 	secondaryCta,
 	sections,
 	highlights,
+	images,
 	relatedLinks,
 	faqs,
 } = Astro.props as Props;
@@ -57,6 +66,27 @@ const {
 					<Button href={primaryCta.href} arrow="right">{primaryCta.label}</Button>
 					<Button href={secondaryCta.href} variant="outline">{secondaryCta.label}</Button>
 				</div>
+			</div>
+		</section>
+
+		<section class="site-container pb-16">
+			<div class="grid gap-4 md:grid-cols-3">
+				{
+					images.map((image, index) => (
+						<div class:list={["overflow-hidden", index === 1 ? "md:mt-10" : ""]}>
+							<Image
+								src={image.src}
+								alt={image.alt}
+								width={720}
+								height={index === 1 ? 860 : 680}
+								densities={[1.5, 2]}
+								class="h-full min-h-80 w-full object-cover"
+								loading={index === 0 ? "eager" : "lazy"}
+								quality="high"
+							/>
+						</div>
+					))
+				}
 			</div>
 		</section>
 
@@ -103,9 +133,14 @@ const {
 						relatedLinks.map((link) => (
 							<a
 								href={link.href}
-								class="border border-primary-200 px-5 py-4 text-sm tracking-widest text-base-700 uppercase transition-colors hover:border-primary-500 hover:text-primary-700"
+								class="group flex items-center justify-between gap-4 border border-primary-200 px-5 py-4 text-sm tracking-widest text-base-700 uppercase transition-colors hover:border-primary-500 hover:text-primary-700"
 							>
-								{link.label}
+								<span>{link.label}</span>
+								<Icon
+									name="mynaui/arrow-long-right"
+									class="h-[1.4em] w-[1.4em] shrink-0 transition-transform group-hover:translate-x-1"
+									aria-hidden="true"
+								/>
 							</a>
 						))
 					}
