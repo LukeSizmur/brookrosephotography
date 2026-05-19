@@ -8,8 +8,8 @@ location: Arundel, West Sussex
 clients: [A West Sussex Family]
 images:
   [
-    [../../../assets/images/family-images/familyphotography_0.jpg, ../../../assets/images/family-images/familyphotography_1.jpg, ../../../assets/images/family-images/familyphotography_2.jpg],
-    [../../../assets/images/family-images/familyphotography_3.jpg, ../../../assets/images/family-images/familyphotography_4.jpeg],
+    [../../../assets/images/family-images/familyphotography_0.jpg, ../../../assets/images/family-images/familyphotography_1.jpg],
+    [../../../assets/images/family-images/familyphotography_4.jpeg],
     [../../../assets/images/family-images/familyphotography_5.jpg],
   ]
 order: 1
