@@ -2,10 +2,10 @@
 title: Alana
 description: A tender and intimate family session welcoming baby George into the world — quiet moments, big emotions, and a brand new chapter.
 heroImage: ../../../assets/images/newborn-images/newbornphotography_22.jpeg
-bannerImage: ../../../assets/images/newborn-images/newbornphotography_2.jpg
+bannerImage: ../../../assets/images/newborn-images/newbornphotography_5.jpg
 date: "Mar 14 2020"
-location: Bedfordshire
-clients: [Alexa, James, George]
+location: England
+clients: [Alana]
 images:
   [
     [../../../assets/images/newborn-images/newbornphotography_0.jpg, ../../../assets/images/newborn-images/newbornphotography_1.jpg, ../../../assets/images/newborn-images/newbornphotography_2.jpg],
@@ -16,4 +16,4 @@ order: 3
 category: "family"
 ---
 
-Welcoming baby George into the world with the most tender family portraits. Alexa and James's love for their new arrival shines through every image — tiny fingers, sleepy snuggles, and the profound joy of becoming a family of three. These are the moments you'll want to treasure forever.
+Welcoming a new baby into the world with the most tender family portraits. Alana's love for their new arrival shines through every image — tiny fingers, sleepy snuggles, and the profound joy of becoming a family of three. These are the moments you'll want to treasure forever.
