@@ -5,9 +5,8 @@ import Button from "@components/Button/Button.astro";
 <form
 	id="contact-form"
 	name="contact"
-	action="/api/contact"
-	method="post"
-	data-astro-reload
+	action="mailto:brook.rose@hotmail.com"
+	method="get"
 	class="flex h-full flex-col justify-between gap-4"
 >
 	<div>
@@ -60,19 +59,20 @@ import Button from "@components/Button/Button.astro";
 		/>
 	</div>
 	<div class="flex">
-		<Button variant="primary" type="submit" class="w-full px-10 md:w-fit">Submit</Button>
+		<Button variant="primary" type="submit" class="w-full px-10 md:w-fit">Create Email</Button>
 	</div>
 	<p id="contact-form-status" class="description min-h-[1.6rem]" aria-live="polite"></p>
 </form>
 
 <script data-astro-rerun>
+	const recipientEmail = "brook.rose@hotmail.com";
 	const contactForm = document.querySelector("#contact-form");
 	const contactFormStatus = document.querySelector("#contact-form-status");
 
 	if (contactForm instanceof HTMLFormElement && contactFormStatus instanceof HTMLElement) {
 		const submitButton = contactForm.querySelector('button[type="submit"]');
 		const submitButtonText = submitButton?.querySelector("span");
-		const initialButtonText = submitButtonText?.textContent || "Submit";
+		const initialButtonText = submitButtonText?.textContent || "Create Email";
 
 		contactForm.addEventListener("submit", async (event) => {
 			event.preventDefault();
@@ -83,48 +83,38 @@ import Button from "@components/Button/Button.astro";
 
 			submitButton.disabled = true;
 			if (submitButtonText) {
-				submitButtonText.textContent = "Sending...";
+				submitButtonText.textContent = "Opening...";
 			}
 			contactFormStatus.textContent = "";
 
 			try {
-				const formData = new URLSearchParams();
+				const formData = new FormData(contactForm);
+				const name = String(formData.get("name") || "").trim();
+				const email = String(formData.get("email") || "").trim();
+				const date = String(formData.get("date") || "").trim();
+				const message = String(formData.get("message") || "").trim();
+				const subject = `Brook Rose Photography enquiry from ${name}`;
+				const body = [
+					"Hi Brook,",
+					"",
+					message,
+					"",
+					"Enquiry details:",
+					`Name: ${name}`,
+					`Email: ${email}`,
+					`Event date: ${date}`,
+				].join("\n");
+				const mailtoUrl = new URL(`mailto:${recipientEmail}`);
 
-				for (const [key, value] of new FormData(contactForm)) {
-					if (typeof value === "string") {
-						formData.append(key, value);
-					}
-				}
-
-				const response = await fetch(contactForm.action, {
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/x-www-form-urlencoded",
-					},
-					body: formData,
-				});
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-				const result = isJson ? await response.json() : null;
-
-				if (!response.ok) {
-					throw new Error(
-						result?.error ||
-							"The contact form API was not reached. If testing locally, run the site with Vercel dev.",
-					);
-				}
-
-				if (!isJson) {
-					throw new Error("The contact form API returned an unexpected response.");
-				}
-
-				contactForm.reset();
-				contactFormStatus.textContent = "Thank you. Your message has been sent.";
+				mailtoUrl.searchParams.set("subject", subject);
+				mailtoUrl.searchParams.set("body", body);
+				window.location.href = mailtoUrl.toString();
+				contactFormStatus.textContent = "Your email app should open with the message ready to send.";
 			} catch (error) {
 				contactFormStatus.textContent =
 					error instanceof Error
 						? error.message
-						: "The message could not be sent. Please try again.";
+						: "Your email app could not be opened. Please email Brook directly.";
 			} finally {
 				submitButton.disabled = false;
 				if (submitButtonText) {
