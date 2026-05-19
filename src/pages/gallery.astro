@@ -21,54 +21,20 @@ const familyMods = import.meta.glob<{ default: ImageMetadata }>(
 	{ eager: true },
 );
 
-// 3. Rest — order within each group is consistent, groups are arbitrary
-const baliMods = import.meta.glob<{ default: ImageMetadata }>(
-	"../assets/images/bali-destination-photoshoot/*.jpg",
-	{ eager: true },
-);
-const thailandMods = import.meta.glob<{ default: ImageMetadata }>(
-	"../assets/images/thailand-destination-photoshoot/*.jpg",
-	{ eager: true },
-);
 const galleryMods = import.meta.glob<{ default: ImageMetadata }>(
 	"../assets/images/gallery-images/*.jpg",
 	{ eager: true },
 );
-const northMymmsMods = import.meta.glob<{ default: ImageMetadata }>(
-	"../assets/images/wedding-photos/north-mymms-mansion-house/*.jpg",
+const weddingMods = import.meta.glob<{ default: ImageMetadata }>(
+	"../assets/images/wedding-photos/**/*.{jpg,jpeg,png}",
 	{ eager: true },
 );
-const islingtonMods = import.meta.glob<{ default: ImageMetadata }>(
-	"../assets/images/wedding-photos/islington-town-hall/*.jpg",
-	{ eager: true },
-);
-
-// Root-level photos — exclude site UI assets
-const rootMods = import.meta.glob<{ default: ImageMetadata }>(
-	"../assets/images/*.{jpg,jpeg,png}",
-	{ eager: true },
-);
-const siteAssets = new Set([
-	"logo-min.png",
-	"hero-bg-crop.jpg",
-	"hero-bg-min.jpg",
-	"photographer-min.jpg",
-	"portfolio-header-crop-min.jpg",
-]);
-const rootImages = Object.entries(rootMods)
-	.filter(([path]) => !siteAssets.has(path.split("/").pop() ?? ""))
-	.sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
-	.map(([, m]) => m.default);
 
 const images: ImageMetadata[] = [
 	...sorted(newbornMods),
 	...sorted(familyMods),
-	...sorted(baliMods),
-	...sorted(thailandMods),
 	...sorted(galleryMods),
-	...sorted(northMymmsMods),
-	...sorted(islingtonMods),
-	...rootImages,
+	...sorted(weddingMods),
 ];
 
 // Repeating span pattern for a 3-column grid (uses grid-auto-flow: dense to fill gaps)
@@ -95,11 +61,10 @@ const spanPattern = [
 	<!-- Page Header -->
 	<div class="site-container pt-32 pb-12 text-center">
 		<p class="h3 text-primary-600 mb-4 tracking-[0.3em]">Browse</p>
-		<h1 class="h2 mb-6 text-pretty">
-			A Collection of Timeless Moments
-		</h1>
+		<h1 class="h2 mb-6 text-pretty">A Collection of Timeless Moments</h1>
 		<p class="description mx-auto max-w-xl text-lg">
-			Newborn sessions, family portraits, weddings, and destination shoots — every image tells a story worth keeping.
+			Newborn sessions, family portraits, weddings, and destination shoots — every image tells a
+			story worth keeping.
 		</p>
 	</div>
 
@@ -109,25 +74,51 @@ const spanPattern = [
 			{
 				images.map((img, i) => {
 					const { col, row } = spanPattern[i % spanPattern.length];
+					const alt = `Photography image ${i + 1}`;
+
 					return (
-						<div
+						<button
+							type="button"
 							class="gallery-item"
 							style={`grid-column: span ${col}; grid-row: span ${row};`}
 							data-gallery-item
+							data-modal-src={img.src}
+							data-modal-alt={alt}
+							aria-label={`Open ${alt}`}
 						>
 							<Image
 								src={img}
-								alt={`Photography — image ${i + 1}`}
+								alt={alt}
 								width={col === 2 ? 1200 : 600}
 								height={row === 2 ? 900 : 450}
 								class="gallery-image"
 								loading="lazy"
 								quality="high"
 							/>
-						</div>
+						</button>
 					);
 				})
 			}
+		</div>
+	</div>
+
+	<div class="gallery-modal" data-gallery-modal aria-hidden="true">
+		<button
+			type="button"
+			class="gallery-modal-close"
+			data-gallery-modal-close
+			aria-label="Close image"
+		>
+			X
+		</button>
+		<div class="gallery-modal-backdrop" data-gallery-modal-backdrop></div>
+		<div
+			class="gallery-modal-frame"
+			role="dialog"
+			aria-modal="true"
+			aria-label="Expanded gallery image"
+		>
+			<img class="gallery-modal-image" data-gallery-modal-image src="" alt="" />
 		</div>
 	</div>
 </BaseLayout>
@@ -142,6 +133,11 @@ const spanPattern = [
 	}
 
 	.gallery-item {
+		appearance: none;
+		border: 0;
+		padding: 0;
+		cursor: zoom-in;
+		text-align: inherit;
 		overflow: hidden;
 		position: relative;
 		background-color: var(--color-base-200);
@@ -150,6 +146,12 @@ const spanPattern = [
 		transition:
 			opacity 0.55s ease,
 			transform 0.55s ease;
+	}
+
+	.gallery-item:focus-visible {
+		outline: 2px solid var(--color-primary-600);
+		outline-offset: 3px;
+		z-index: 1;
 	}
 
 	.gallery-item.visible {
@@ -167,6 +169,76 @@ const spanPattern = [
 
 	.gallery-item:hover .gallery-image {
 		transform: scale(1.04);
+	}
+
+	.gallery-modal {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		display: grid;
+		place-items: center;
+		padding: 24px;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.24s ease;
+	}
+
+	.gallery-modal.is-open {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.gallery-modal-backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgb(12 10 8 / 88%);
+	}
+
+	.gallery-modal-close {
+		position: fixed;
+		top: 18px;
+		right: 18px;
+		z-index: 102;
+		display: grid;
+		width: 44px;
+		height: 44px;
+		place-items: center;
+		border: 1px solid rgb(255 255 255 / 34%);
+		border-radius: 999px;
+		background: rgb(12 10 8 / 72%);
+		color: white;
+		cursor: pointer;
+		font: 500 20px / 1 var(--font-body);
+		transition:
+			background 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.gallery-modal-close:hover,
+	.gallery-modal-close:focus-visible {
+		background: rgb(12 10 8 / 92%);
+		transform: scale(1.04);
+	}
+
+	.gallery-modal-frame {
+		position: relative;
+		z-index: 101;
+		display: grid;
+		max-width: min(94vw, 1800px);
+		max-height: 90vh;
+		place-items: center;
+	}
+
+	.gallery-modal-image {
+		display: block;
+		max-width: 100%;
+		max-height: 90vh;
+		object-fit: contain;
+		box-shadow: 0 24px 80px rgb(0 0 0 / 35%);
+	}
+
+	body.gallery-modal-open {
+		overflow: hidden;
 	}
 
 	/* Tablet: 2 columns */
@@ -201,15 +273,29 @@ const spanPattern = [
 			grid-column: span 1 !important;
 			grid-row: span 1 !important;
 		}
+
+		.gallery-modal {
+			padding: 16px;
+		}
+
+		.gallery-modal-close {
+			top: 12px;
+			right: 12px;
+		}
 	}
 </style>
 
 <script>
 	const items = document.querySelectorAll<HTMLElement>("[data-gallery-item]");
+	const modal = document.querySelector<HTMLElement>("[data-gallery-modal]");
+	const modalImage = document.querySelector<HTMLImageElement>("[data-gallery-modal-image]");
+	const closeButton = document.querySelector<HTMLButtonElement>("[data-gallery-modal-close]");
+	const backdrop = document.querySelector<HTMLElement>("[data-gallery-modal-backdrop]");
+	let activeTrigger: HTMLElement | null = null;
 
 	const observer = new IntersectionObserver(
 		(entries) => {
-			entries.forEach((entry, i) => {
+			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					// Stagger delay based on position within a row
 					const el = entry.target as HTMLElement;
@@ -226,4 +312,44 @@ const spanPattern = [
 	);
 
 	items.forEach((item) => observer.observe(item));
+
+	const openModal = (trigger: HTMLElement) => {
+		const src = trigger.dataset.modalSrc;
+		const alt = trigger.dataset.modalAlt ?? "";
+
+		if (!modal || !modalImage || !src) return;
+
+		activeTrigger = trigger;
+		modalImage.src = src;
+		modalImage.alt = alt;
+		modal.classList.add("is-open");
+		modal.setAttribute("aria-hidden", "false");
+		document.body.classList.add("gallery-modal-open");
+		closeButton?.focus();
+	};
+
+	const closeModal = () => {
+		if (!modal || !modalImage) return;
+
+		modal.classList.remove("is-open");
+		modal.setAttribute("aria-hidden", "true");
+		document.body.classList.remove("gallery-modal-open");
+		modalImage.removeAttribute("src");
+		modalImage.alt = "";
+		activeTrigger?.focus();
+		activeTrigger = null;
+	};
+
+	items.forEach((item) => {
+		item.addEventListener("click", () => openModal(item));
+	});
+
+	closeButton?.addEventListener("click", closeModal);
+	backdrop?.addEventListener("click", closeModal);
+
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape" && modal?.classList.contains("is-open")) {
+			closeModal();
+		}
+	});
 </script>
