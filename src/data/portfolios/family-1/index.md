@@ -2,13 +2,13 @@
 title: Autumn Birthday in Arundel
 description: A golden autumn first birthday session in the beautiful grounds of Arundel, West Sussex — full of joy, wonder, and pure childhood magic.
 heroImage: ../../../assets/images/family-images/familyphotography_5.jpg
-bannerImage: ../../../assets/images/family-images/familyphotography_2.jpg
+bannerImage: ../../../assets/images/family-images/familyphotography_0.jpg
 date: "Oct 14 2020"
 location: Arundel, West Sussex
 clients: [A West Sussex Family]
 images:
   [
-    [../../../assets/images/family-images/familyphotography_2.jpg, ../../../assets/images/family-images/familyphotography_1.jpg],
+    [../../../assets/images/family-images/familyphotography_0.jpg, ../../../assets/images/family-images/familyphotography_1.jpg],
     [../../../assets/images/family-images/familyphotography_4.jpeg],
     [../../../assets/images/family-images/familyphotography_5.jpg],
   ]
