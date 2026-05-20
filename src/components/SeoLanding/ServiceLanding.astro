@@ -155,11 +155,17 @@ const {
 				<div class="mt-8 divide-y divide-primary-200 border-y border-primary-200">
 					{
 						faqs.map((faq) => (
-							<details class="group py-5">
-								<summary class="cursor-pointer list-none font-heading-1 text-xl text-primary-700">
-									{faq.question}
+							<details class="service-accordion group py-5">
+								<summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-heading-1 text-xl text-primary-700 transition-colors duration-300 hover:text-primary-800">
+									<span>{faq.question}</span>
+									<span class="accordion-icon" aria-hidden="true">
+										<span class="accordion-icon__line"></span>
+										<span class="accordion-icon__line accordion-icon__line--vertical"></span>
+									</span>
 								</summary>
-								<p class="mt-3 text-base leading-relaxed text-base-700">{faq.answer}</p>
+								<div class="accordion-panel">
+									<p class="pt-3 text-base leading-relaxed text-base-700">{faq.answer}</p>
+								</div>
 							</details>
 						))
 					}
@@ -171,3 +177,153 @@ const {
 		<Contact class="mt-12" />
 	</main>
 </BaseLayout>
+
+<style>
+	.service-accordion summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.accordion-icon {
+		position: relative;
+		display: inline-grid;
+		width: 2rem;
+		height: 2rem;
+		flex: 0 0 2rem;
+		place-items: center;
+		border: 1px solid var(--color-primary-300);
+		color: var(--color-primary-700);
+		transition:
+			border-color 220ms cubic-bezier(0.25, 1, 0.5, 1),
+			color 220ms cubic-bezier(0.25, 1, 0.5, 1),
+			transform 280ms cubic-bezier(0.25, 1, 0.5, 1);
+	}
+
+	.service-accordion summary:hover .accordion-icon {
+		border-color: var(--color-primary-500);
+		transform: rotate(45deg);
+	}
+
+	.accordion-icon__line {
+		position: absolute;
+		width: 0.875rem;
+		height: 1px;
+		background: currentColor;
+		transition:
+			opacity 180ms cubic-bezier(0.25, 1, 0.5, 1),
+			transform 280ms cubic-bezier(0.25, 1, 0.5, 1);
+	}
+
+	.accordion-icon__line--vertical {
+		transform: rotate(90deg);
+	}
+
+	.service-accordion[open]:not([data-closing="true"]) .accordion-icon {
+		border-color: var(--color-primary-500);
+		color: var(--color-primary-800);
+		transform: rotate(135deg);
+	}
+
+	.service-accordion[open]:not([data-closing="true"]) .accordion-icon__line--vertical {
+		opacity: 0;
+		transform: rotate(90deg) scaleX(0.35);
+	}
+
+	.accordion-panel {
+		overflow: hidden;
+		height: 0;
+		opacity: 0;
+		transform: translateY(-0.25rem);
+		transition:
+			height 320ms cubic-bezier(0.25, 1, 0.5, 1),
+			opacity 220ms cubic-bezier(0.25, 1, 0.5, 1),
+			transform 320ms cubic-bezier(0.25, 1, 0.5, 1);
+	}
+
+	.service-accordion[open] .accordion-panel {
+		height: auto;
+	}
+
+	.service-accordion[open]:not([data-closing="true"]) .accordion-panel {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.accordion-icon,
+		.accordion-icon__line,
+		.accordion-panel {
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	const animationDuration = 320;
+
+	document.querySelectorAll<HTMLDetailsElement>(".service-accordion").forEach((accordion) => {
+		const summary = accordion.querySelector("summary");
+		const panel = accordion.querySelector<HTMLElement>(".accordion-panel");
+
+		if (!summary || !panel) {
+			return;
+		}
+
+		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+		const setOpenPanelHeight = () => {
+			if (accordion.open) {
+				panel.style.height = `${panel.scrollHeight}px`;
+			}
+		};
+
+		summary.addEventListener("click", (event) => {
+			if (prefersReducedMotion.matches) {
+				return;
+			}
+
+			event.preventDefault();
+
+			if (accordion.dataset.animating === "true") {
+				return;
+			}
+
+			accordion.dataset.animating = "true";
+
+			if (accordion.open) {
+				accordion.dataset.closing = "true";
+				panel.style.height = `${panel.scrollHeight}px`;
+
+				requestAnimationFrame(() => {
+					panel.style.height = "0px";
+				});
+
+				window.setTimeout(() => {
+					accordion.open = false;
+					delete accordion.dataset.closing;
+					delete accordion.dataset.animating;
+				}, animationDuration);
+
+				return;
+			}
+
+			accordion.open = true;
+			panel.style.height = "0px";
+
+			requestAnimationFrame(() => {
+				panel.style.height = `${panel.scrollHeight}px`;
+			});
+
+			window.setTimeout(() => {
+				delete accordion.dataset.animating;
+			}, animationDuration);
+		});
+
+		panel.addEventListener("transitionend", (event) => {
+			if (event.propertyName === "height" && accordion.open) {
+				panel.style.height = `${panel.scrollHeight}px`;
+			}
+		});
+
+		window.addEventListener("resize", setOpenPanelHeight);
+	});
+</script>

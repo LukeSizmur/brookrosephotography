@@ -4,6 +4,7 @@ import "@/styles/global.css";
 import Footer from "@components/Footer/Footer.astro";
 import Nav from "@components/Nav/Nav.astro";
 import BaseHead from "@layouts/BaseHead.astro";
+import Analytics from "@vercel/analytics/astro";
 
 // heroImage and authorData are defined on blog posts
 // authorData could also be defined on the about author page
@@ -45,6 +46,7 @@ const {
 			</main>
 		</div>
 		<Footer />
+		<Analytics />
 	</body>
 
 	<script>
