@@ -155,16 +155,16 @@ const {
 				<div class="mt-8 divide-y divide-primary-200 border-y border-primary-200">
 					{
 						faqs.map((faq) => (
-							<details class="service-accordion group py-5">
-								<summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-heading-1 text-xl text-primary-700 transition-colors duration-300 hover:text-primary-800">
-									<span>{faq.question}</span>
+							<details class="service-accordion">
+								<summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 font-heading-1 text-xl leading-snug text-primary-700 transition-colors duration-200 hover:text-primary-900">
+									<span class="pr-4">{faq.question}</span>
 									<span class="accordion-icon" aria-hidden="true">
 										<span class="accordion-icon__line"></span>
 										<span class="accordion-icon__line accordion-icon__line--vertical"></span>
 									</span>
 								</summary>
 								<div class="accordion-panel">
-									<p class="pt-3 text-base leading-relaxed text-base-700">{faq.answer}</p>
+									<p class="max-w-3xl pb-6 text-base leading-relaxed text-base-700">{faq.answer}</p>
 								</div>
 							</details>
 						))
@@ -186,26 +186,23 @@ const {
 	.accordion-icon {
 		position: relative;
 		display: inline-grid;
-		width: 2rem;
-		height: 2rem;
-		flex: 0 0 2rem;
+		width: 1rem;
+		height: 1rem;
+		flex: 0 0 1rem;
 		place-items: center;
-		border: 1px solid var(--color-primary-300);
-		color: var(--color-primary-700);
+		color: var(--color-primary-600);
 		transition:
-			border-color 220ms cubic-bezier(0.25, 1, 0.5, 1),
-			color 220ms cubic-bezier(0.25, 1, 0.5, 1),
-			transform 280ms cubic-bezier(0.25, 1, 0.5, 1);
+			color 180ms cubic-bezier(0.25, 1, 0.5, 1),
+			transform 260ms cubic-bezier(0.25, 1, 0.5, 1);
 	}
 
 	.service-accordion summary:hover .accordion-icon {
-		border-color: var(--color-primary-500);
-		transform: rotate(45deg);
+		color: var(--color-primary-800);
 	}
 
 	.accordion-icon__line {
 		position: absolute;
-		width: 0.875rem;
+		width: 1rem;
 		height: 1px;
 		background: currentColor;
 		transition:
@@ -218,9 +215,8 @@ const {
 	}
 
 	.service-accordion[open]:not([data-closing="true"]) .accordion-icon {
-		border-color: var(--color-primary-500);
 		color: var(--color-primary-800);
-		transform: rotate(135deg);
+		transform: rotate(180deg);
 	}
 
 	.service-accordion[open]:not([data-closing="true"]) .accordion-icon__line--vertical {
