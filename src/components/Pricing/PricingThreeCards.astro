@@ -71,12 +71,17 @@ const pricingData: pricingItem[] = [
 <section id="pricing" class="pricing-section scroll-mt-10 px-4 py-16 md:py-24">
 	<div class="mx-auto max-w-6xl">
 		<div class="mb-16 text-center" data-animate>
-			<p class="hours-label mb-3 tracking-[0.25em] text-primary-500 uppercase">Investment</p>
-			<h2 class="font-heading-1 text-4xl font-light tracking-wide md:text-5xl">Family & Newborn Packages</h2>
-			<div class="mx-auto mt-6 h-px w-16 bg-primary-300"></div>
+			<p class="hours-label text-primary-500 mb-3 tracking-[0.25em] uppercase">Investment</p>
+			<h2 class="font-heading-1 text-4xl font-light tracking-wide md:text-5xl">
+				Family & Newborn Packages
+			</h2>
+			<div class="bg-primary-300 mx-auto mt-6 h-px w-16"></div>
 		</div>
 
-		<div class="cards-grid mx-auto grid w-full max-w-md gap-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-3 lg:gap-6 lg:items-start" data-animate-stagger>
+		<div
+			class="cards-grid mx-auto grid w-full max-w-md gap-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-3 lg:items-start lg:gap-6"
+			data-animate-stagger
+		>
 			{
 				pricingData.map((plan) => (
 					<div
@@ -85,7 +90,6 @@ const pricingData: pricingItem[] = [
 							plan.featured ? "pricing-card--featured" : "pricing-card--standard",
 						]}
 					>
-						<!-- Image -->
 						<div class="card-image-wrap overflow-hidden">
 							<Image
 								src={plan.image}
@@ -96,38 +100,28 @@ const pricingData: pricingItem[] = [
 							/>
 						</div>
 
-						<!-- Content -->
 						<div class="card-body flex flex-1 flex-col">
-							<!-- Hours badge -->
-							<p class="hours-label mb-2 text-xs tracking-[0.2em] text-primary-500 uppercase">
+							<p class="hours-label text-primary-500 mb-2 text-xs tracking-[0.2em] uppercase">
 								{plan.duration}
 							</p>
 
-							<!-- Name -->
 							<h3 class="font-heading-1 text-2xl font-normal tracking-wide">{plan.name}</h3>
 
-							<!-- Divider -->
-							<div class="my-5 h-px bg-primary-200"></div>
+							<div class="bg-primary-200 my-5 h-px" />
 
-							<!-- Price -->
-							<p class="price-text font-decorative text-3xl leading-tight tracking-wide text-primary-700">
+							<p class="price-text font-decorative text-primary-700 text-3xl leading-tight tracking-wide">
 								{plan.price}
 							</p>
 
-							<!-- Divider -->
-							<div class="my-5 h-px bg-primary-200"></div>
+							<div class="bg-primary-200 my-5 h-px" />
 
-							<!-- Description -->
-							<p class="font-sans text-base leading-relaxed text-base-600">
-								{plan.description}
-							</p>
+							<p class="text-base-600 font-sans text-base leading-relaxed">{plan.description}</p>
 
-							<!-- Features -->
 							{plan.features.length > 0 && (
 								<ul class="mt-5 flex flex-col gap-3">
 									{plan.features.map((feature) => (
-										<li class="flex items-start gap-3 font-sans text-sm leading-relaxed text-base-600">
-											<span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-primary-400"></span>
+										<li class="text-base-600 flex items-start gap-3 font-sans text-sm leading-relaxed">
+											<span class="bg-primary-400 mt-1.5 h-1 w-1 shrink-0 rounded-full" />
 											{feature}
 										</li>
 									))}
@@ -139,10 +133,34 @@ const pricingData: pricingItem[] = [
 			}
 		</div>
 
-		<div class="mt-16 flex justify-center">
-			<Button href="/#contact" variant="outline" class="px-10 py-3 tracking-widest uppercase text-sm">
-				Get in touch
-			</Button>
+		<div class="services-bridge mt-16" data-animate>
+			<div class="services-bridge__copy">
+				<p class="hours-label text-primary-500 mb-3 tracking-[0.25em] uppercase">
+					Also photographing
+				</p>
+				<h3
+					class="font-heading-1 text-primary-700 text-3xl leading-tight font-light tracking-wide md:text-4xl"
+				>
+					Weddings, families, newborns, and the stories in between
+				</h3>
+				<p class="text-base-600 mt-5 max-w-2xl font-sans text-base leading-relaxed md:text-lg">
+					If you are planning something a little different, Brook also photographs wedding
+					days and family stories across Chichester, West Sussex, London, and beyond.
+				</p>
+			</div>
+			<div class="services-bridge__actions">
+				<Button href="/#contact" variant="primary" arrow="right" class="services-bridge__button">
+					Enquire about a family session
+				</Button>
+				<Button
+					href="/wedding-photographer-chichester/"
+					variant="outline"
+					arrow="right"
+					class="services-bridge__button services-bridge__button--secondary"
+				>
+					View wedding photography
+				</Button>
+			</div>
 		</div>
 	</div>
 </section>
@@ -150,6 +168,50 @@ const pricingData: pricingItem[] = [
 <style>
 	.pricing-section {
 		background-color: oklch(97.46% 0.0051 67.76); /* primary-50 */
+	}
+
+	.services-bridge {
+		display: grid;
+		grid-template-columns: minmax(0, 1.45fr) minmax(17rem, 0.55fr);
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: center;
+		padding: clamp(2rem, 5vw, 3.5rem);
+		background:
+			linear-gradient(135deg, oklch(100% 0 0 / 0.9), oklch(96.72% 0.011 78.21 / 0.92)),
+			oklch(99% 0.004 76);
+		border: 1px solid oklch(88.03% 0.0219 76.52);
+		box-shadow: 0 18px 60px -40px oklch(45.03% 0.0426 44.25 / 0.45);
+	}
+
+	.services-bridge__copy {
+		position: relative;
+	}
+
+	.services-bridge__copy::after {
+		content: "";
+		display: block;
+		width: 4rem;
+		height: 1px;
+		margin-top: 1.75rem;
+		background-color: oklch(80.1% 0.0376 73.97);
+	}
+
+	.services-bridge__actions {
+		display: flex;
+		flex-direction: column;
+		gap: 0.875rem;
+		align-items: stretch;
+		justify-content: center;
+	}
+
+	:global(.services-bridge__button) {
+		justify-content: center;
+		padding: 0.9rem 1.25rem;
+		text-align: center;
+	}
+
+	:global(.services-bridge__button--secondary) {
+		background-color: oklch(100% 0 0 / 0.45);
 	}
 
 	.pricing-card {
@@ -238,6 +300,17 @@ const pricingData: pricingItem[] = [
 	@media (min-width: 1024px) {
 		.pricing-card--featured {
 			margin-top: -1.5rem;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.services-bridge {
+			grid-template-columns: 1fr;
+			padding: 1.75rem;
+		}
+
+		.services-bridge__copy::after {
+			margin-top: 1.25rem;
 		}
 	}
 

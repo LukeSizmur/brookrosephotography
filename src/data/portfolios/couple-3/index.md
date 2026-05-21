@@ -17,6 +17,7 @@ images:
   ]
 order: 6
 category: "weddings"
+draft: true
 ---
 
 An exquisite wedding celebration set against the timeless grandeur of North Mymms Mansion House. Every detail, from the elegant décor to the heartfelt moments between loved ones, has been captured with artistry and care.
