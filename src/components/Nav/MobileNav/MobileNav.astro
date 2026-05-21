@@ -52,7 +52,7 @@ import { Icon } from "astro-icon/components";
 				</ul>
 			</nav>
 			<div class="mx-1 mt-2 w-full px-4">
-				<Button variant="outline" class="mobile-nav__contact w-full" href="mailto:brookrosephotography">
+				<Button variant="outline" class="mobile-nav__contact w-full" href="/#contact">
 					Contact
 				</Button>
 			</div>
@@ -72,6 +72,25 @@ import { Icon } from "astro-icon/components";
 	let mobileNavContent: HTMLElement | null;
 	let mobileNavCloseBtn: HTMLElement | null;
 	let mobileNavBackdrop: HTMLElement | null;
+	let mobileNavContact: HTMLElement | null;
+
+	function closeMobileNav() {
+		if (!(mobileNavBurger && mobileNavContent && mobileNavContainer && mobileNavBackdrop)) {
+			return;
+		}
+
+		mobileNavContainer.classList.remove("open");
+		mobileNavBurger.setAttribute("aria-expanded", "false");
+
+		mobileNavContent.classList.remove("mobile-nav--slide-in");
+		mobileNavContent.classList.add("mobile-nav--slide-out");
+		setTimeout(() => {
+			mobileNavContent?.classList.add("hidden");
+		}, 300);
+
+		mobileNavBackdrop.classList.remove("mobile-nav__backdrop--fade-in");
+		mobileNavBackdrop.classList.add("mobile-nav__backdrop--fade-out");
+	}
 
 	function toggleMobileNav(event: Event) {
 		if (mobileNavBurger && mobileNavContent && mobileNavContainer && mobileNavBackdrop)
@@ -90,22 +109,7 @@ import { Icon } from "astro-icon/components";
 				mobileNavBackdrop.classList.remove("mobile-nav__backdrop--fade-out");
 				mobileNavBackdrop.classList.add("mobile-nav__backdrop--fade-in");
 			} else {
-				// dropdown is currently open, so close it
-				mobileNavContainer.classList.remove("open");
-				mobileNavBurger.setAttribute("aria-expanded", "false");
-
-				// mobile nav content drawer
-				mobileNavContent.classList.remove("mobile-nav--slide-in");
-				mobileNavContent.classList.add("mobile-nav--slide-out");
-				// make hidden after the slide out effect is done
-				setTimeout(() => {
-					mobileNavContent?.classList.add("hidden");
-				}, 300);
-
-				// backdrop button
-				mobileNavBackdrop.classList.remove("mobile-nav__backdrop--fade-in");
-				mobileNavBackdrop.classList.add("mobile-nav__backdrop--fade-out");
-				// set a timeout
+				closeMobileNav();
 			}
 		event.preventDefault();
 		return false;
@@ -118,12 +122,15 @@ import { Icon } from "astro-icon/components";
 		mobileNavContent = document.getElementById("mobile-nav__content");
 		mobileNavCloseBtn = document.getElementById("mobile-nav__close");
 		mobileNavBackdrop = document.getElementById("mobile-nav__backdrop");
+		mobileNavContact = document.querySelector(".mobile-nav__contact");
 
 		if (mobileNavBurger && mobileNavCloseBtn && mobileNavBackdrop) {
 			mobileNavBurger.addEventListener("click", toggleMobileNav);
 			mobileNavCloseBtn.addEventListener("click", toggleMobileNav);
 			mobileNavBackdrop.addEventListener("click", toggleMobileNav);
 		}
+
+		mobileNavContact?.addEventListener("click", closeMobileNav);
 	}
 
 	// runs on initial page load

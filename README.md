@@ -14,7 +14,7 @@ This is a free photography theme for Astro created by [Cosmic Themes](https://co
    - [Content editing](https://cosmicthemes.com/docs/content/)
    - [Forms](https://cosmicthemes.com/docs/contact-form/)
 5. Update the site URL in `astro.config.mjs` and `/public/robots.txt` to match your domain
-6. After you're happy, update your changes to your repo and [deploy to Netlify, Vercel, Cloudflare](https://cosmicthemes.com/deployment/), or other provider of your choice
+6. After you're happy, update your changes to your repo and deploy to Vercel
 
 ## Code Intro
 
@@ -61,7 +61,6 @@ The source files have the following setup. Note that not all files are listed he
 ├── .gitignore
 ├── .prettierrc.mjs
 ├── astro.config.mjs
-├── netlify.toml
 ├── package.json
 ├── package-lock.json
 ├── README.md
