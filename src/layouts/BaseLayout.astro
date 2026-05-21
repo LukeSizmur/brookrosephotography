@@ -79,8 +79,86 @@ const {
 				.forEach((el) => observer.observe(el));
 		}
 
+		function initMotionAccordions() {
+			const animationDuration = 320;
+			const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+			document.querySelectorAll<HTMLDetailsElement>("[data-motion-accordion]").forEach((accordion) => {
+				if (accordion.dataset.accordionReady === "true") {
+					return;
+				}
+
+				const summary = accordion.querySelector("summary");
+				const panel = accordion.querySelector<HTMLElement>("[data-accordion-panel]");
+
+				if (!summary || !panel) {
+					return;
+				}
+
+				accordion.dataset.accordionReady = "true";
+
+				const setOpenPanelHeight = () => {
+					if (accordion.open) {
+						panel.style.height = `${panel.scrollHeight}px`;
+					}
+				};
+
+				summary.addEventListener("click", (event) => {
+					if (prefersReducedMotion.matches) {
+						return;
+					}
+
+					event.preventDefault();
+
+					if (accordion.dataset.animating === "true") {
+						return;
+					}
+
+					accordion.dataset.animating = "true";
+
+					if (accordion.open) {
+						accordion.dataset.closing = "true";
+						panel.style.height = `${panel.scrollHeight}px`;
+
+						requestAnimationFrame(() => {
+							panel.style.height = "0px";
+						});
+
+						window.setTimeout(() => {
+							accordion.open = false;
+							delete accordion.dataset.closing;
+							delete accordion.dataset.animating;
+						}, animationDuration);
+
+						return;
+					}
+
+					accordion.open = true;
+					panel.style.height = "0px";
+
+					requestAnimationFrame(() => {
+						panel.style.height = `${panel.scrollHeight}px`;
+					});
+
+					window.setTimeout(() => {
+						delete accordion.dataset.animating;
+					}, animationDuration);
+				});
+
+				panel.addEventListener("transitionend", (event) => {
+					if (event.propertyName === "height" && accordion.open) {
+						panel.style.height = `${panel.scrollHeight}px`;
+					}
+				});
+
+				window.addEventListener("resize", setOpenPanelHeight, { passive: true });
+			});
+		}
+
 		// Run on initial load and after Astro view transitions
 		initScrollAnimations();
+		initMotionAccordions();
 		document.addEventListener("astro:page-load", initScrollAnimations);
+		document.addEventListener("astro:page-load", initMotionAccordions);
 	</script>
 </html>

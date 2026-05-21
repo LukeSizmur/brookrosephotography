@@ -1,8 +1,37 @@
 /* buttons, 4 types "primary", "secondary", "outline", "ghost" */
 .button {
-	@apply font-heading-1 flex items-center justify-center rounded-none px-4 py-2 text-lg tracking-wide uppercase transition duration-200;
-	@apply active:opacity-80;
+	@apply font-heading-1 flex items-center justify-center rounded-none px-4 py-2 text-lg tracking-wide uppercase transition;
 	@apply disabled:pointer-events-none;
+	transition-duration: var(--motion-duration-base);
+	transition-property: background-color, border-color, color, opacity, transform;
+	transition-timing-function: var(--motion-ease-out);
+}
+
+.button:hover {
+	transform: translateY(-1px);
+}
+
+.button:active {
+	opacity: 0.82;
+	transform: translateY(0) scale(0.985);
+}
+
+.button svg {
+	transition: transform var(--motion-duration-base) var(--motion-ease-out);
+}
+
+.button:hover svg,
+.button:focus-visible svg {
+	transform: translateX(0.22rem);
+}
+
+.button:has(svg.rotate-180):hover svg,
+.button:has(svg.rotate-180):focus-visible svg {
+	transform: rotate(180deg) translateX(0.22rem);
+}
+
+.button:disabled {
+	opacity: 0.68;
 }
 
 .button--primary {

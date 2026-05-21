@@ -18,13 +18,13 @@ const { title, description, heroImage } = portfolio.data;
 
 <div
 	class:list={[
-		"grid gap-2 md:gap-4",
+		"portfolio-card group grid gap-2 md:gap-4",
 		{
 			"md:grid-cols-2": direction === "horizontal",
 		},
 	]}
 >
-	<a href={`/portfolio/${portfolio.id}`} class="aspect-square overflow-hidden">
+	<a href={`/portfolio/${portfolio.id}`} class="portfolio-card__image-link aspect-square overflow-hidden">
 		{
 			noTransitions && (
 				<Image
@@ -32,7 +32,7 @@ const { title, description, heroImage } = portfolio.data;
 					alt={title}
 					width={450}
 					densities={[1.5, 2, 3]}
-					class="h-full w-full object-cover"
+					class="portfolio-card__image h-full w-full object-cover"
 				/>
 			)
 		}
@@ -43,7 +43,7 @@ const { title, description, heroImage } = portfolio.data;
 					alt={title}
 					width={450}
 					densities={[1.5, 2, 3]}
-					class="h-full w-full object-cover"
+					class="portfolio-card__image h-full w-full object-cover"
 					transition:name={`portfolio-image-${portfolio.id}`}
 				/>
 			)
@@ -61,3 +61,44 @@ const { title, description, heroImage } = portfolio.data;
 		</div>
 	</div>
 </div>
+
+<style>
+	.portfolio-card__image-link {
+		display: block;
+		background-color: var(--color-base-200);
+	}
+
+	.portfolio-card__image {
+		transition:
+			transform var(--motion-duration-slow) var(--motion-ease-out),
+			filter var(--motion-duration-slow) var(--motion-ease-out);
+		will-change: transform;
+	}
+
+	.portfolio-card:hover .portfolio-card__image,
+	.portfolio-card:focus-within .portfolio-card__image {
+		filter: saturate(1.03) contrast(1.02);
+		transform: scale(1.035);
+	}
+
+	.portfolio-card h3,
+	.portfolio-card p {
+		transition:
+			color var(--motion-duration-base) var(--motion-ease-out),
+			transform var(--motion-duration-base) var(--motion-ease-out);
+	}
+
+	.portfolio-card:hover h3,
+	.portfolio-card:focus-within h3 {
+		transform: translateY(-1px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.portfolio-card__image,
+		.portfolio-card h3,
+		.portfolio-card p {
+			transition: none;
+			transform: none !important;
+		}
+	}
+</style>

@@ -1,12 +1,11 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
+import halfDayImage from "@assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_2.jpg";
+import bespokeImage from "@assets/images/wedding-photos/north-mymms-mansion-house.png";
+import fullDayImage from "@assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_2.jpg";
 import Button from "@components/Button/Button.astro";
 import Contact from "@components/Contact/Contact.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-
-import halfDayImage from "@assets/images/wedding-photos/islington-town-hall/islington-town-hall-wedding-ceremony-with-reception-at-bourne-amp-hollingworth_2.jpg";
-import fullDayImage from "@assets/images/wedding-photos/north-mymms-mansion-house/north-mymms-mansion-house_2.jpg";
-import bespokeImage from "@assets/images/wedding-photos/north-mymms-mansion-house.png";
 
 const packages = [
 	{
@@ -145,7 +144,7 @@ const comparison = [
 
 	<!-- Comparison table -->
 	<div class="site-container pb-16 pt-10 mt-10 md:pb-24">
-		<details class="comparison-details mx-auto max-w-4xl" data-animate>
+		<details class="comparison-details mx-auto max-w-4xl" data-animate data-motion-accordion>
 			<summary class="comparison-summary">
 				<span class="font-heading-1 text-lg tracking-wide">Compare all packages</span>
 				<span class="chevron" aria-hidden="true">
@@ -165,7 +164,7 @@ const comparison = [
 				</span>
 			</summary>
 
-			<div class="comparison-table-wrap">
+			<div class="comparison-table-wrap" data-accordion-panel>
 				<table class="comparison-table w-full text-sm">
 					<thead>
 						<tr>
@@ -209,6 +208,17 @@ const comparison = [
 
 <style>
 	/* ── Pricing cards ── */
+	.pricing-card {
+		transition:
+			box-shadow var(--motion-duration-base) var(--motion-ease-out),
+			transform var(--motion-duration-base) var(--motion-ease-out);
+		will-change: transform;
+	}
+
+	.pricing-card:hover {
+		transform: translateY(-4px);
+	}
+
 	.pricing-card--standard {
 		background-color: white;
 	}
@@ -225,6 +235,11 @@ const comparison = [
 		box-shadow: 0 8px 40px -8px oklch(64.12% 0.0623 60.4 / 0.2);
 		position: relative;
 	}
+
+	.pricing-card--featured:hover {
+		box-shadow: 0 16px 48px -14px oklch(64.12% 0.0623 60.4 / 0.32);
+	}
+
 	.pricing-card--featured::before {
 		content: "Most Popular";
 		position: absolute;
@@ -251,9 +266,12 @@ const comparison = [
 		overflow: hidden;
 	}
 	.card-image {
-		transition: transform 0.7s ease;
+		transition:
+			filter var(--motion-duration-slow) var(--motion-ease-out),
+			transform var(--motion-duration-slow) var(--motion-ease-out);
 	}
 	.pricing-card:hover .card-image {
+		filter: saturate(1.03) contrast(1.02);
 		transform: scale(1.03);
 	}
 	@media (min-width: 1024px) {
@@ -277,6 +295,7 @@ const comparison = [
 		background-color: oklch(97.46% 0.0051 67.76);
 		user-select: none;
 		gap: 1rem;
+		transition: background-color var(--motion-duration-base) var(--motion-ease-out);
 	}
 	.comparison-summary::-webkit-details-marker {
 		display: none;
@@ -288,10 +307,10 @@ const comparison = [
 		display: flex;
 		align-items: center;
 		color: oklch(64.12% 0.0623 60.4);
-		transition: transform 0.25s ease;
+		transition: transform var(--motion-duration-base) var(--motion-ease-out);
 		flex-shrink: 0;
 	}
-	.comparison-details[open] .chevron {
+	.comparison-details[open]:not([data-closing="true"]) .chevron {
 		transform: rotate(180deg);
 	}
 
@@ -300,8 +319,23 @@ const comparison = [
 		border: 1px solid oklch(88.03% 0.0219 76.52);
 		border-top: none;
 		overflow-x: auto;
+		overflow-y: hidden;
 		-webkit-overflow-scrolling: touch;
 		max-width: 100%;
+		height: 0;
+		opacity: 0;
+		transform: translateY(-8px);
+		transition:
+			height 320ms var(--motion-ease-out),
+			opacity var(--motion-duration-base) var(--motion-ease-out),
+			transform var(--motion-duration-base) var(--motion-ease-out);
+	}
+	.comparison-details[open] .comparison-table-wrap {
+		height: auto;
+	}
+	.comparison-details[open]:not([data-closing="true"]) .comparison-table-wrap {
+		opacity: 1;
+		transform: translateY(0);
 	}
 	.comparison-table {
 		border-collapse: collapse;
@@ -350,10 +384,14 @@ const comparison = [
 		padding: 0.5rem 1.25rem;
 		border: 1px solid oklch(80.1% 0.0376 73.97);
 		color: oklch(45.03% 0.0426 44.25);
-		transition: background-color 0.2s ease, color 0.2s ease;
+		transition:
+			background-color var(--motion-duration-fast) var(--motion-ease-out),
+			color var(--motion-duration-fast) var(--motion-ease-out),
+			transform var(--motion-duration-fast) var(--motion-ease-out);
 	}
 	.cta-link:hover {
 		background-color: oklch(88.03% 0.0219 76.52);
+		transform: translateY(-1px);
 	}
 	.cta-link--featured {
 		background-color: oklch(88.03% 0.0219 76.52);
@@ -361,5 +399,21 @@ const comparison = [
 	}
 	.cta-link--featured:hover {
 		background-color: oklch(80.1% 0.0376 73.97);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.pricing-card,
+		.card-image,
+		.chevron,
+		.comparison-summary,
+		.comparison-table-wrap,
+		.cta-link {
+			transition: none;
+			transform: none !important;
+		}
+
+		.comparison-table-wrap {
+			opacity: 1;
+		}
 	}
 </style>

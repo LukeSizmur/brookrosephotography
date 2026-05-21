@@ -23,7 +23,7 @@ import { Icon } from "astro-icon/components";
 	</button>
 	<div
 		id="mobile-nav__content"
-		class="whitepace-nowrap bg-base-50 text-base-900 fixed top-0 -right-72 z-20 hidden h-screen w-72 items-center overflow-x-hidden text-lg font-normal transition-all duration-300"
+		class="whitepace-nowrap bg-base-50 text-base-900 fixed top-0 right-0 z-20 hidden h-screen w-72 items-center overflow-x-hidden text-lg font-normal"
 	>
 		<div class="w-full px-2">
 			<div class="mx-1 my-2 flex w-full justify-end pr-4 pl-6">
@@ -36,7 +36,7 @@ import { Icon } from "astro-icon/components";
 			<!-- nav items -->
 			<hr class="border-base-200 mx-1" />
 			<nav aria-label="Mobile navigation">
-				<ul class="mx-1 mt-2 text-xl">
+				<ul class="mobile-nav__items mx-1 mt-2 text-xl">
 					{
 						// if dropdown exists, setup the dropdown, otherwise it is just a link
 						navData.map((navItem) =>
@@ -52,7 +52,7 @@ import { Icon } from "astro-icon/components";
 				</ul>
 			</nav>
 			<div class="mx-1 mt-2 w-full px-4">
-				<Button variant="outline" class="w-full" href="mailto:brookrosephotography">
+				<Button variant="outline" class="mobile-nav__contact w-full" href="mailto:brookrosephotography">
 					Contact
 				</Button>
 			</div>
@@ -134,8 +134,12 @@ import { Icon } from "astro-icon/components";
 </script>
 
 <style>
+	#mobile-nav__content {
+		transform: translateX(100%);
+	}
+
 	.mobile-nav__backdrop--fade-in {
-		animation: MobileNavFadeInAnimation ease-in-out 0.3s forwards;
+		animation: MobileNavFadeInAnimation var(--motion-ease-out) var(--motion-duration-base) forwards;
 		display: block;
 		width: 100vw;
 	}
@@ -157,28 +161,79 @@ import { Icon } from "astro-icon/components";
 
 	/* mobile nav content drawer */
 	.mobile-nav--slide-in {
-		animation: mobileNavSlideInAnimation ease-in-out 0.3s forwards;
+		animation: mobileNavSlideInAnimation var(--motion-ease-emphatic) var(--motion-duration-base) forwards;
 	}
 
 	.mobile-nav--slide-out {
-		animation: mobileNavSlideOutAnimation ease-in-out 0.3s forwards;
+		animation: mobileNavSlideOutAnimation var(--motion-ease-out) var(--motion-duration-base) forwards;
 	}
 
 	@keyframes mobileNavSlideInAnimation {
 		0% {
-			right: calc(var(--spacing) * -72);
+			transform: translateX(100%);
 		}
 		100% {
-			right: 0;
+			transform: translateX(0);
 		}
 	}
 
 	@keyframes mobileNavSlideOutAnimation {
 		0% {
-			right: 0;
+			transform: translateX(0);
 		}
 		100% {
-			right: calc(var(--spacing) * -72);
+			transform: translateX(100%);
+		}
+	}
+
+	#mobile-nav__container.open .mobile-nav__items > li,
+	#mobile-nav__container.open .mobile-nav__contact {
+		animation: mobileNavItemReveal var(--motion-duration-slow) var(--motion-ease-out) both;
+	}
+
+	#mobile-nav__container.open .mobile-nav__items > li:nth-child(1) {
+		animation-delay: 80ms;
+	}
+
+	#mobile-nav__container.open .mobile-nav__items > li:nth-child(2) {
+		animation-delay: 120ms;
+	}
+
+	#mobile-nav__container.open .mobile-nav__items > li:nth-child(3) {
+		animation-delay: 160ms;
+	}
+
+	#mobile-nav__container.open .mobile-nav__items > li:nth-child(4) {
+		animation-delay: 200ms;
+	}
+
+	#mobile-nav__container.open .mobile-nav__contact {
+		animation-delay: 240ms;
+	}
+
+	@keyframes mobileNavItemReveal {
+		from {
+			opacity: 0;
+			transform: translateX(12px);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		#mobile-nav__content {
+			transform: none;
+		}
+
+		.mobile-nav__backdrop--fade-in,
+		.mobile-nav--slide-in,
+		.mobile-nav--slide-out,
+		#mobile-nav__container.open .mobile-nav__items > li,
+		#mobile-nav__container.open .mobile-nav__contact {
+			animation: none;
 		}
 	}
 </style>
